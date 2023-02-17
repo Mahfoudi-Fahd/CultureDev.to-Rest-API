@@ -2,15 +2,16 @@
 
 #  To Use this Project Locally
 
-1 - Clone the repo
-2 - Create your database
-3 - Copy .env.example to .env
-4 - Run composer install
-5 - Run php artisan jwt:secret     // to generate jwt secret key & paste it to .env file
-6 - Name your database in .env file
-7 - Run php artisan migrate
-8 - Run php artisan serv 
-
+<p align="center">
+1 - Clone the repo <br>
+2 - Create your database <br>
+3 - Copy .env.example to .env <br>
+4 - Run composer install <br>
+5 - Run php artisan jwt:secret     // to generate jwt secret key & paste it to .env file <br>
+6 - Name your database in .env file <br>
+7 - Run php artisan migrate <br>
+8 - Run php artisan serv  <br>
+</p>
 
 
 
