@@ -87,7 +87,7 @@ Route::controller(AuthController::class)->group(function () {
 
 
 
- /* Comment Controller
+ /* Comment Route
 
 
 
