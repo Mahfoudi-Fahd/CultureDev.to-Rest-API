@@ -18,11 +18,11 @@ return new class extends Migration
             $table->string('title')->nullable(false);
             $table->string('description')->nullable(false);
             $table->string('content')->nullable(false);
-            $table->bigInteger('user_id')->unsigned()->index()->nullable();
+            $table->bigInteger('user_id')->unsigned()->index()->nullable(false);
             $table->foreign('user_id')->references('id')->on('users');
-            $table->bigInteger('category_id')->unsigned()->index()->nullable();
+            $table->bigInteger('category_id')->unsigned()->index()->nullable(false);
             $table->foreign('category_id')->references('id')->on('categories');
-            $table->bigInteger('tag_id')->unsigned()->index()->nullable();
+            $table->bigInteger('tag_id')->unsigned()->index()->nullable(false);
             $table->foreign('tag_id')->references('id')->on('tags');
             $table->timestamps();
         });
