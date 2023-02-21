@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->string('content')->nullable(false);
-            $table->bigInteger('user_id')->unsigned()->index()->nullable();
+            $table->Integer('user_id')->unsigned()->index()->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->bigInteger('article_id')->unsigned()->index()->nullable();
             $table->foreign('article_id')->references('id')->on('articles');
