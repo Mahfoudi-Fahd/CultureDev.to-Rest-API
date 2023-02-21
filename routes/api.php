@@ -70,28 +70,11 @@ Route::apiResource('categories', CategoryController::class);
 
 
 
-
-
- 
-
+// Tag Route
 
 
 
-
-
- /* Tag Route
-
-
-
-
-
-
-
-
- */
-
-
-
+Route::apiResource('tags', CategoryController::class);
 
 
 

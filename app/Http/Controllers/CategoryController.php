@@ -20,7 +20,8 @@ class CategoryController extends Controller
         return response()->json([
             'status' => 'success',
             'categories' => $categories
-        ]);    }
+        ]); 
+    }
 
     /**
      * Show the form for creating a new resource.
