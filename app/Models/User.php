@@ -16,10 +16,10 @@ class User extends Authenticatable implements JWTSubject
 
 {
 
-    
-    
+
+
     use HasFactory, Notifiable, SoftDeletes;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -32,6 +32,11 @@ class User extends Authenticatable implements JWTSubject
         'role_id',
     ];
 
+    public function roles()
+    {
+
+        return $this->hasOne(Role::class);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
