@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
 
@@ -27,7 +28,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('refresh', 'refresh');
 });
 
-Route::Post('createRole', [RoleController::class, 'createRole']);
+// Route::Post('createRole', [RoleController::class, 'createRole']);
 
 Route::middleware('auth:api')->group(function () {
     Route::controller(UserController::class)->group(function () {
@@ -69,6 +70,7 @@ Route::middleware('auth:api')->group(function () {
 
 Route::apiResource('categories', CategoryController::class);
 
+// Tag Route
 
 
 
@@ -78,16 +80,17 @@ Route::apiResource('categories', CategoryController::class);
 
 
 
-/* Tag Route
+/* Tag Route */
+
+
+
+Route::apiResource('tags', TagController::class);
 
 
 
 
 
 
-
-
- */
 
 
 
