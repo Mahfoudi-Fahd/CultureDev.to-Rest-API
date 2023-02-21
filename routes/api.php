@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,16 +55,17 @@ Route::controller(AuthController::class)->group(function () {
 
 
 
- /* Category Route
+//   Category Route
+
+
+
+Route::apiResource('categories', CategoryController::class);
 
 
 
 
 
-
-
-
- */
+ 
 
 
 
