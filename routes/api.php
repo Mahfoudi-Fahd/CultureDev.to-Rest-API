@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,17 +26,22 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('refresh', 'refresh');
 });
 
+Route::Post('createRole', [RoleController::class,'createRole']);
 
-/* User Route
+Route::middleware('auth:api')->group(function () {
+    Route::controller(UserController::class)->group(function () {
+        Route::put('update','update');
+        Route::put('reset-password', 'resetPassword');
+        Route::delete('destroy','destroy');
+    });
+});
+/* User Route */
 
 
 
 
 
 
-
-
- */
 
 
 
