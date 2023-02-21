@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -74,7 +75,7 @@ Route::apiResource('categories', CategoryController::class);
 
 
 
-Route::apiResource('tags', CategoryController::class);
+Route::apiResource('tags', TagController::class);
 
 
 

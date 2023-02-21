@@ -19,7 +19,7 @@ class TagController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'tags$tags' => $tags
+            'tags' => $tags
         ]);    }
 
     /**
@@ -40,7 +40,13 @@ class TagController extends Controller
      */
     public function store(StoreTagRequest $request)
     {
-        //
+        $tag = Tag::create($request->all());
+
+        return response()->json([
+            'status' => true,
+            'message' => "Tag Created successfully!",
+            'tag' => $tag
+        ], 201);    
     }
 
     /**
@@ -51,7 +57,11 @@ class TagController extends Controller
      */
     public function show(Tag $tag)
     {
-        //
+        $tag->find($tag->id);
+        if (!$tag) {
+            return response()->json(['message' => 'Tag not found'], 404);
+        }
+        return response()->json($tag, 200);    
     }
 
     /**
@@ -72,9 +82,19 @@ class TagController extends Controller
      * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTagRequest $request, Tag $tag)
+    public function update(StoreTagRequest $request, Tag $tag)
     {
-        //
+        $tag->update($request->all());
+
+        if (!$tag) {
+            return response()->json(['message' => 'Tag not found'], 404);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => "Tag Updated successfully!",
+            'tag' => $tag
+        ], 200);    
     }
 
     /**
@@ -85,6 +105,17 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+
+        if (!$tag) {
+            return response()->json([
+                'message' => 'Tag not found'
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Tag deleted successfully'
+        ], 200);    
     }
 }
