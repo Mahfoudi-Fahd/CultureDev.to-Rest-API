@@ -37,13 +37,14 @@ Route::Post('createRole', [RoleController::class, 'createRole']);
 
 Route::middleware('auth:api')->group(function () {
     Route::controller(UserController::class)->group(function () {
-        Route::put('update','update');
+        Route::put('updateProfile','update');
         Route::post('reset-password', 'forgetPassword');
-        Route::delete('destroy','destroy');
+        Route::delete('deleteProfile','destroy');
         Route::post('changePassword','changePassword');
     });
 });
 
+// this method to get All users with a specific id
 Route::post('/users', [UserController::class, 'getUsers']);
 
 
