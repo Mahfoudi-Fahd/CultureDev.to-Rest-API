@@ -35,9 +35,10 @@ Route::Post('createRole', [RoleController::class, 'createRole']);
 
 Route::middleware('auth:api')->group(function () {
     Route::controller(UserController::class)->group(function () {
-        Route::put('update', 'update');
-        Route::put('reset-password', 'resetPassword');
-        Route::delete('destroy', 'destroy');
+        Route::put('update','update');
+        Route::post('reset-password', 'forgetPassword');
+        Route::delete('destroy','destroy');
+        Route::post('changePassword','changePassword');
     });
 });
 
@@ -84,4 +85,13 @@ Route::apiResource('tags', TagController::class);
 
 //   Comment Route
 
-Route::apiResource('comments', CommentController::class)->middleware('auth:api');
+// Route::apiResource('comments', CommentController::class)->middleware('auth:api');
+
+Route::controller(CommentController::class)->group(function () {
+    Route::get('comments', 'index');
+    Route::post('comments', 'store');
+    Route::get('comments/{comment}', 'show');
+    // Route::put('comments/{comment}', 'update');
+    Route::delete('comments/{comment}', 'destroy');
+    // Route::get('comments/article/{comment}', 'showComments');
+})->middleware('auth:api');
