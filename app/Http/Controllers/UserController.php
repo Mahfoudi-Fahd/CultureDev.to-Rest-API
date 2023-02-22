@@ -73,6 +73,7 @@ class UserController extends Controller
             }
            
         }
+
         public function changePassword(Request $request)
         {
             $user= $request->user();
@@ -104,6 +105,7 @@ class UserController extends Controller
                     ],405);
             }
         }
+        
         public function destroy(Request $request)
         {
             $user=$request->user();
