@@ -31,7 +31,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('refresh', 'refresh');
 });
 
-// Route::Post('createRole', [RoleController::class, 'createRole']);
+Route::Post('createRole', [RoleController::class, 'createRole']);
 
 Route::middleware('auth:api')->group(function () {
     Route::controller(UserController::class)->group(function () {
