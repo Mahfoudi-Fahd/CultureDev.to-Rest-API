@@ -32,7 +32,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
 });
-
+// this method to create a roles
 Route::Post('createRole', [RoleController::class, 'createRole']);
 
 Route::middleware('auth:api')->group(function () {
@@ -41,11 +41,12 @@ Route::middleware('auth:api')->group(function () {
         Route::post('reset-password', 'forgetPassword');
         Route::delete('deleteProfile','destroy');
         Route::post('changePassword','changePassword');
+        // this method to get All users with a specific id
+        Route::post('/users',  'getUsers');
     });
 });
 
-// this method to get All users with a specific id
-Route::post('/users', [UserController::class, 'getUsers']);
+
 
 
 
