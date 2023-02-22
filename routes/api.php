@@ -31,7 +31,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('refresh', 'refresh');
 });
 
-// Route::Post('createRole', [RoleController::class, 'createRole']);
+Route::Post('createRole', [RoleController::class, 'createRole']);
 
 Route::middleware('auth:api')->group(function () {
     Route::controller(UserController::class)->group(function () {
@@ -45,16 +45,12 @@ Route::middleware('auth:api')->group(function () {
 
 
 
-
-
-
-
-
-
 /* Article Route */
 
 Route::apiResource('articles', ArticleController::class);
-Route::get('articles/search/{searching}', [ArticleController::class, 'search']);
+Route::get('articles/search/title/{searching}', [ArticleController::class, 'searchByTitle']);
+Route::get('articles/search/category/{searching}', [ArticleController::class, 'searchByCategory']);
+Route::get('articles/search/tag/{searching}', [ArticleController::class, 'searchByTag']);
 
 
 
