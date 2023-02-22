@@ -8,6 +8,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,8 @@ use App\Http\Controllers\CommentController;
 |
 */
 
+
+/* User Route */
 
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
@@ -37,7 +40,6 @@ Route::middleware('auth:api')->group(function () {
         Route::delete('destroy', 'destroy');
     });
 });
-/* User Route */
 
 
 
@@ -49,28 +51,17 @@ Route::middleware('auth:api')->group(function () {
 
 
 
-/* Article Route
+/* Article Route */
 
-
-
-
-
-
-
-
- */
-
+Route::apiResource('articles', ArticleController::class);
+Route::get('articles/search/{searching}', [ArticleController::class, 'search']);
 
 
 
 
 //   Category Route
 
-
-
 Route::apiResource('categories', CategoryController::class);
-
-// Tag Route
 
 
 
@@ -81,8 +72,6 @@ Route::apiResource('categories', CategoryController::class);
 
 
 /* Tag Route */
-
-
 
 Route::apiResource('tags', TagController::class);
 
