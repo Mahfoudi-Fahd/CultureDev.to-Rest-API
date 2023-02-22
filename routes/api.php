@@ -50,16 +50,12 @@ Route::post('/users', [UserController::class, 'getUsers']);
 
 
 
-
-
-
-
-
-
 /* Article Route */
 
 Route::apiResource('articles', ArticleController::class);
-Route::get('articles/search/{searching}', [ArticleController::class, 'search']);
+Route::get('articles/search/title/{searching}', [ArticleController::class, 'searchByTitle']);
+Route::get('articles/search/category/{searching}', [ArticleController::class, 'searchByCategory']);
+Route::get('articles/search/tag/{searching}', [ArticleController::class, 'searchByTag']);
 
 
 

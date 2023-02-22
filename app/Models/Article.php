@@ -15,12 +15,15 @@ class Article extends Model
         return $this->BelongsTo(Category::class,'category_id','id')->select(['id', 'name']);
     }
 
-    public function tag(){
+    public function tags(){
         return $this->belongsToMany(Tag::class);
     }
 
-    // public function user(){
-    //     return $this->hasOne(user::class);
-    // }
-
+    public function user(){
+        return $this->BelongsTo(User::class);
+    }
+   
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
 }
