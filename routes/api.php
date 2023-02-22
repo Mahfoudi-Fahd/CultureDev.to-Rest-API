@@ -35,9 +35,10 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::middleware('auth:api')->group(function () {
     Route::controller(UserController::class)->group(function () {
-        Route::put('update', 'update');
-        Route::put('reset-password', 'resetPassword');
-        Route::delete('destroy', 'destroy');
+        Route::put('update','update');
+        Route::post('reset-password', 'forgetPassword');
+        Route::delete('destroy','destroy');
+        Route::post('changePassword','changePassword');
     });
 });
 
