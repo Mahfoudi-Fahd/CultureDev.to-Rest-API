@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Role;
+use App\Services\EmailService;
 
 class UserController extends Controller
 {  
@@ -35,30 +36,42 @@ class UserController extends Controller
             ]);
         }    
         
-        public function resetPassword(Request $request)
+        public function forgetPassword(Request $request)
         {
             $user = $request->user();
+            if($request->isMethod('post')){
+                $request->validate([
+                    'email' => 'required|string|email',
+                ]);
+                $email=$request->email;
+                $user = User::where('email', $email)->first();
+                if($user){
+                    $full_name=$user->name;
+                    $activation_token = md5(uniqid()).$email.sha1($email);
+                    $emailresetpwd = new EmailService;
+                    $subject ="reset your password";
+                    $emailresetpwd->resetPassword($subject,$email,$full_name,true,$activation_token);
+                    $user = User::where('email', $email)->update(['remembertoken' => $activation_token ]);
+                    return response()->json([
+                                'status' => 'success',
+                                'message' => 'We have send an email vereification to your email please verify that',
+                                'name' => $full_name,
+                                'token' => $activation_token,
 
-            $request->validate([
-                'email' => 'required|string|email',
-                'old_password' => 'required|string',
-                'password' => 'required|string|min:8',
-            ]);
-
-            if (!Hash::check($request->old_password, $user->password)) {
+                    ], 200);
+                }else{
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => 'email dosnt exist',
+            ], 404);
+                }
+            }else{
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Invalid old password',
+                    'message' => 'Invalid method',
                 ], 401);
             }
-
-            $user->password = Hash::make($request->password);
-            $user->save();
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Password reset successfully',
-            ]);
-
+           
         }
 
         public function destroy(Request $request)
