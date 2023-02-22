@@ -73,7 +73,37 @@ class UserController extends Controller
             }
            
         }
-
+        public function changePassword(Request $request)
+        {
+            $user= $request->user();
+            // $token =$user->rememberToken;
+            if($request->isMethod('post')){
+                $request->validate([
+                    'password' => 'required|min:8',
+                    'confirm_password' => 'required|min:8|same:password',
+                    'token' => 'required'
+                ]);
+                $user = User::where('rememberToken', $request->token)->first();
+                if($user){
+                    $user->password = Hash::make($request->password);
+                    $user->save();
+                    return response()->json([
+                       'statuts' => 'success',
+                       'message' => 'your password has been updated successfuly',
+                    ],200);
+                }else{
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => 'you do not have permession to access into this page'
+                    ],401);
+                }
+            }else{
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => 'method not allowd'
+                    ],405);
+            }
+        }
         public function destroy(Request $request)
         {
             $user=$request->user();
