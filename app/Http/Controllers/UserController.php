@@ -105,13 +105,12 @@ class UserController extends Controller
                     ],405);
             }
         }
-        
+
         public function destroy(Request $request)
         {
             $user=$request->user();
             if ($user) {
                 $user->delete();
-            
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Profile deleted successfully',
@@ -124,5 +123,5 @@ class UserController extends Controller
             }
         }
     
-    
+       
 }

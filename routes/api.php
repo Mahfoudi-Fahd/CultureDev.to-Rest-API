@@ -9,6 +9,8 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ArticleController;
+use Faker\Factory as FakerFactory;
+use PHPOpenSourceSaver\JWTAuth\Factory;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +43,8 @@ Route::middleware('auth:api')->group(function () {
         Route::post('changePassword','changePassword');
     });
 });
+
+Route::post('/users', [UserController::class, 'getUsers']);
 
 
 
