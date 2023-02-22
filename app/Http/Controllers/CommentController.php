@@ -75,6 +75,17 @@ class CommentController extends Controller
             200
         );
     }
+    // public function showComments(Comment $comment)
+    // {
+    //     $comment->find($comment->id);
+    //     if (!$comment) {
+    //         return response()->json(['message' => 'Comment not found'], 404);
+    //     }
+    //     return response()->json(
+    //         $comment,
+    //         200
+    //     );
+    // }
 
     /**
      * Show the form for editing the specified resource.

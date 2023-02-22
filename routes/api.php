@@ -99,4 +99,13 @@ Route::apiResource('tags', TagController::class);
 
 //   Comment Route
 
-Route::apiResource('comments', CommentController::class)->middleware('auth:api');
+// Route::apiResource('comments', CommentController::class)->middleware('auth:api');
+
+Route::controller(CommentController::class)->group(function () {
+    Route::get('comments', 'index');
+    Route::post('comments', 'store');
+    Route::get('comments/{comment}', 'show');
+    // Route::put('comments/{comment}', 'update');
+    Route::delete('comments/{comment}', 'destroy');
+    // Route::get('comments/article/{comment}', 'showComments');
+})->middleware('auth:api');
