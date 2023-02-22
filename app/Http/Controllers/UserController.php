@@ -105,13 +105,12 @@ class UserController extends Controller
                     ],405);
             }
         }
-        
+
         public function destroy(Request $request)
         {
             $user=$request->user();
             if ($user) {
                 $user->delete();
-            
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Profile deleted successfully',
@@ -124,5 +123,33 @@ class UserController extends Controller
             }
         }
     
-    
+        public function getUsers(Request $request)
+        {
+            if($request->isMethod('post')){
+                $request->validate([
+                    'id' => 'required',
+                ]);
+                $usersCount = User::where('role_id', $request->id)->count();
+                $userId = User::where('role_id', $request->id)->get();
+                if($usersCount>0){
+                    return response()->json([
+                       'status' => 'success',
+                        'message' => $userId,
+                        'number' => $usersCount
+                    ]);
+                }else{
+                    return response()->json([
+                        'status' => 'info',
+                        'message' => 'there is no users with this id'
+                    ]);
+                }
+            }else{
+                return response()->json([
+                    'status' => 'info',
+                    'message' => 'method not allowd'
+                ],405);
+
+            }
+            
+        }
 }

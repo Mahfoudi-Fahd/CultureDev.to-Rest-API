@@ -20,6 +20,11 @@ class User extends Authenticatable implements JWTSubject
 
     use HasFactory, Notifiable, SoftDeletes;
 
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

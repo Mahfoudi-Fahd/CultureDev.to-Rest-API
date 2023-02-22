@@ -9,6 +9,8 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ArticleController;
+use Faker\Factory as FakerFactory;
+use PHPOpenSourceSaver\JWTAuth\Factory;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,17 +32,21 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
 });
-
+// this method to create a roles
 Route::Post('createRole', [RoleController::class, 'createRole']);
 
 Route::middleware('auth:api')->group(function () {
     Route::controller(UserController::class)->group(function () {
-        Route::put('update','update');
+        Route::put('updateProfile','update');
         Route::post('reset-password', 'forgetPassword');
-        Route::delete('destroy','destroy');
+        Route::delete('deleteProfile','destroy');
         Route::post('changePassword','changePassword');
+        // this method to get All users with a specific id
+        Route::post('/users',  'getUsers');
     });
 });
+
+
 
 
 
