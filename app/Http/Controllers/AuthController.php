@@ -203,7 +203,37 @@ class AuthController extends Controller
             ]
         ]);
     }
-
+       /**
+     * @OA\Post(
+     *     path="/api/logout",
+     *     summary="Log out user",
+     *     description="Log out the currently authenticated user",
+     *     tags={"Authentication"},
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Logout successful",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="status",
+     *                 type="string",
+     *                 description="The status of the response",
+     *                 example="success",
+     *             ),
+     *             @OA\Property(
+     *                 property="message",
+     *                 type="string",
+     *                 description="A message describing the response status",
+     *                 example="Successfully logged out",
+     *             ),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response="401",
+     *         description="Anauthoriz action"
+     *     ),
+     * )
+     */
     public function logout()
     {
         Auth::logout();
