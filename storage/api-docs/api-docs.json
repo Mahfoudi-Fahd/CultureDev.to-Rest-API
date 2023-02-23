@@ -104,6 +104,91 @@
                     }
                 }
             }
+        },
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "cretae your account",
+                "description": "Create an account",
+                "operationId": "8a56853624e025573120a09a4c75d468",
+                "requestBody": {
+                    "description": "create the user",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "The user's name",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "The user's email address",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "The user's password",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "The status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "A message describing the response status",
+                                            "type": "string",
+                                            "example": "User createded successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "A message describing the validation error",
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "description": "An object containing validation error messages",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     }
 }
