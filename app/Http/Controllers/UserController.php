@@ -11,6 +11,105 @@ use App\Services\EmailService;
 
 class UserController extends Controller
 {  
+     /**
+                 * @OA\Put(
+                 *     path="/api/updateProfile",
+                 *     summary="Update user information",
+                 *     description="Update the authenticated user's information",
+                 *     tags={"Users"},
+                 *     security={{"bearerAuth": {}}},
+                 *     @OA\RequestBody(
+                 *         description="The updated user information",
+                 *         required=true,
+                 *         @OA\JsonContent(
+                 *             @OA\Property(
+                 *                 property="name",
+                 *                 type="string",
+                 *                 description="The user's new name",
+                 *             ),
+                 *             @OA\Property(
+                 *                 property="email",
+                 *                 type="string",
+                 *                 description="The user's new email address",
+                 *             ),
+                 *             @OA\Property(
+                 *                 property="password",
+                 *                 type="string",
+                 *                 description="The user's new password",
+                 *             ),
+                 *         ),
+                 *     ),
+                 *     @OA\Response(
+                 *         response=200,
+                 *         description="User updated successfully",
+                 *         @OA\JsonContent(
+                 *             @OA\Property(
+                 *                 property="status",
+                 *                 type="string",
+                 *                 description="The status of the response",
+                 *                 example="success",
+                 *             ),
+                 *             @OA\Property(
+                 *                 property="message",
+                 *                 type="string",
+                 *                 description="A message describing the response status",
+                 *                 example="User updated successfully",
+                 *             ),
+                 *             @OA\Property(
+                 *                 property="user",
+                 *                 type="object",
+                 *                 description="The updated user object",
+                 *                 @OA\Property(
+                 *                     property="id",
+                 *                     type="integer",
+                 *                     description="The user's ID",
+                 *                     example=1,
+                 *                 ),
+                 *                 @OA\Property(
+                 *                     property="name",
+                 *                     type="string",
+                 *                     description="The user's name",
+                 *                     example="John Doe",
+                 *                 ),
+                 *                 @OA\Property(
+                 *                     property="email",
+                 *                     type="string",
+                 *                     description="The user's email address",
+                 *                     example="example@example.com",
+                 *                 ),
+                 *                 @OA\Property(
+                 *                     property="role_id",
+                 *                     type="integer",
+                 *                     description="The user's role ID",
+                 *                     example=3,
+                 *                 ),
+                 *             ),
+                 *         ),
+                 *     ),
+                 *     @OA\Response(
+                 *         response=401,
+                 *         description="Unauthorized action",
+                 *     ),
+                 *     @OA\Response(
+                 *         response=422,
+                 *         description="Validation error",
+                 *         @OA\JsonContent(
+                 *             @OA\Property(
+                 *                 property="message",
+                 *                 type="string",
+                 *                 description="A message describing the validation error",
+                 *                 example="The given data was invalid.",
+                 *             ),
+                 *             @OA\Property(
+                 *                 property="errors",
+                 *                 type="object",
+                 *                 description="An object containing validation error messages",
+                 *             ),
+                 *         ),
+                 *     ),
+                 * )
+             */
+
        
         public function update(Request $request)
         {
