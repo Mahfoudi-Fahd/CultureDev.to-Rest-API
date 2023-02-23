@@ -25,7 +25,53 @@ class ArticleController extends Controller
         //     echo $t->pivot->get();
         // }
     }
-
+    
+    /**
+ * @OA\Post(
+ *     path="/api/articles",
+ *     summary="Create a new article",
+ *     description="Create a new article",
+ *     tags={"Articles"},
+ *     security={{"bearerAuth":{}}},
+ *     @OA\RequestBody(
+ *         description="create a new article",
+ *         required=true,
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="The article is successfully added",
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="status",
+ *                 type="string",
+ *                 description="the response status",
+ *                 example="success",
+ *             ),
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 description="message describe the status of response",
+ *                 example="The article is successfully added !",
+ *             ),
+ *         ),
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized action",
+ *     ),
+ *     @OA\Response(
+ *         response=403,
+ *         description="Forbidden action",
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="This action is not allowed !"
+ *             )
+ *         )
+ *     )
+ * )
+ */
 
     public function store(ArticleRequest $request)
     {

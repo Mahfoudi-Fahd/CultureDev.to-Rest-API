@@ -572,6 +572,68 @@
                     }
                 ]
             }
+        },
+        "/api/articles": {
+            "post": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Create a new article",
+                "description": "Create a new article",
+                "operationId": "e328bed23caf889ad982ad3f1180bccb",
+                "requestBody": {
+                    "description": "create a new article",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "The article is successfully added",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "the response status",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "message describe the status of response",
+                                            "type": "string",
+                                            "example": "The article is successfully added !"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized action"
+                    },
+                    "403": {
+                        "description": "Forbidden action",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "This action is not allowed !"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     }
 }
