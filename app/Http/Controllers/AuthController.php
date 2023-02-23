@@ -242,7 +242,39 @@ class AuthController extends Controller
             'message' => 'Successfully logged out',
         ]);
     }
-
+ /**
+     * @OA\Post(
+     *    path="/api/refresh",
+     *    summary="Refresh user's access token",
+     *    description="Refresh user's access token",
+     *    tags={"Authentication"},
+     *    security={{"bearerAuth":{}}},
+     *    @OA\Response(
+     *       response=200,
+     *       description="Access token refreshed successfully",
+     *       @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="status",
+     *                 type="string",
+     *                 description="The status of the response",
+     *                 example="success",
+     *             ),
+     *             @OA\Property(
+     *                 property="message",
+     *                 type="string",
+     *                 description="A message describing the response status",
+     *                 example="the token has been refreshed successfully",
+     *             ),
+     *         ),
+     *    @OA\Response(
+     *    
+     *        response=401,
+     *        description="Anauthoriz action",
+     *    )
+     * 
+     * )
+     * )
+     */
     public function refresh()
     {
         return response()->json([
