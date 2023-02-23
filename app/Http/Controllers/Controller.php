@@ -14,13 +14,13 @@ use Illuminate\Routing\Controller as BaseController;
  *              "url": "https://via.placeholder.com/190x90.png?text=L5-Swagger"
  *          }
  *      },
- *      title="L5 OpenApi",
- *      description="L5 Swagger OpenApi description",
+ *      title="Blog Management System with REST API",
+ *      description="a scalable and flexible system for managing blog content with the ability to support multiple users.",
  *      @OA\Contact(
- *          email="darius@matulionis.lt"
+ *          email="ahmed.yassin.elhamzaoui2019@gmail.com"
  *      ),
  *     @OA\License(
- *         name="Apache 2.0",
+ *         name="lazone m7koma",
  *         url="https://www.apache.org/licenses/LICENSE-2.0.html"
  *     )
  * )

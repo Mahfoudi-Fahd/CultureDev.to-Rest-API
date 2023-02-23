@@ -235,15 +235,15 @@ class UserController extends Controller
            
         }
         /**
-            * @OA\DELETE(
-            *     path="/api/deleteProfile",
-            *     summary="Delete the conected user",
-            *     description="Delete the authenticated user",
+            * @OA\POST(
+            *     path="/api/changePassword",
+            *     summary="change password ",
+            *     description="change the password of the user",
             *     tags={"Users"},
             *     security={{"bearerAuth": {}}},
             *     @OA\Response(
             *         response=200,
-            *         description="User deleted successfully",
+            *         description="password changed successfuly",
             *         @OA\JsonContent(
             *             @OA\Property(
             *                 property="status",
@@ -255,13 +255,33 @@ class UserController extends Controller
             *                 property="message",
             *                 type="string",
             *                 description="A message describing the response status",
-            *                 example="User deleted successfully",
+            *                 example="Password has been changed successfully",
             *             ),
             *         ),
             *     ),
             *     @OA\Response(
-            *         response=401,
-            *         description="Unauthorized action",
+            *         response=405,
+            *         description="Method not allowd",
+            *     ),
+            *     @OA\Response(
+            *         response=422,
+            *         description="validation error",
+            *         @OA\JsonContent(
+            *             @OA\Property(
+            *               property="status",  
+            *               type="string",
+            *               description="the status response",
+            *               example="error"
+            *             ),
+            *             @OA\Property(
+            *               property="message",  
+            *               type="string",
+            *               description="An object containing validation error messages",
+            *               example="validation error",
+            *             ),
+            *         ),
+            *
+            *        ),
             *     ),
             * )
         */
@@ -296,7 +316,37 @@ class UserController extends Controller
                     ],405);
             }
         }
-
+        /**
+            * @OA\DELETE(
+            *     path="/api/deleteProfile",
+            *     summary="Delete the conected user",
+            *     description="Delete the authenticated user",
+            *     tags={"Users"},
+            *     security={{"bearerAuth": {}}},
+            *     @OA\Response(
+            *         response=200,
+            *         description="User deleted successfully",
+            *         @OA\JsonContent(
+            *             @OA\Property(
+            *                 property="status",
+            *                 type="string",
+            *                 description="The status of the response",
+            *                 example="success",
+            *             ),
+            *             @OA\Property(
+            *                 property="message",
+            *                 type="string",
+            *                 description="A message describing the response status",
+            *                 example="User deleted successfully",
+            *             ),
+            *         ),
+            *     ),
+            *     @OA\Response(
+            *         response=401,
+            *         description="Unauthorized action",
+            *     ),
+            * )
+        */
         public function destroy(Request $request)
         {
             $user=$request->user();

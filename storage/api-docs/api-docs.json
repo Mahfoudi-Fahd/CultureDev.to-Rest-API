@@ -1,13 +1,13 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "L5 OpenApi",
-        "description": "L5 Swagger OpenApi description",
+        "title": "Blog Management System with REST API",
+        "description": "a scalable and flexible system for managing blog content with the ability to support multiple users.",
         "contact": {
-            "email": "darius@matulionis.lt"
+            "email": "ahmed.yassin.elhamzaoui2019@gmail.com"
         },
         "license": {
-            "name": "Apache 2.0",
+            "name": "lazone m7koma",
             "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
         },
         "version": "1.0.0",
@@ -467,6 +467,70 @@
                 ]
             }
         },
+        "/api/changePassword": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "change password ",
+                "description": "change the password of the user",
+                "operationId": "c74a6833e836dc51c3133a86fb0a586e",
+                "responses": {
+                    "200": {
+                        "description": "password changed successfuly",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "The status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "A message describing the response status",
+                                            "type": "string",
+                                            "example": "Password has been changed successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "405": {
+                        "description": "Method not allowd"
+                    },
+                    "422": {
+                        "description": "validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "the status response",
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "description": "An object containing validation error messages",
+                                            "type": "string",
+                                            "example": "validation error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/deleteProfile": {
             "delete": {
                 "tags": [
@@ -474,7 +538,7 @@
                 ],
                 "summary": "Delete the conected user",
                 "description": "Delete the authenticated user",
-                "operationId": "ed6f436800e9d6475e3400aed5ff084b",
+                "operationId": "eaef42d2bda2e1695b28bb32edcf322f",
                 "responses": {
                     "200": {
                         "description": "User deleted successfully",
