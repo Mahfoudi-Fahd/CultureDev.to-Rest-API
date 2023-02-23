@@ -234,7 +234,37 @@ class UserController extends Controller
             }
            
         }
-
+        /**
+            * @OA\DELETE(
+            *     path="/api/deleteProfile",
+            *     summary="Delete the conected user",
+            *     description="Delete the authenticated user",
+            *     tags={"Users"},
+            *     security={{"bearerAuth": {}}},
+            *     @OA\Response(
+            *         response=200,
+            *         description="User deleted successfully",
+            *         @OA\JsonContent(
+            *             @OA\Property(
+            *                 property="status",
+            *                 type="string",
+            *                 description="The status of the response",
+            *                 example="success",
+            *             ),
+            *             @OA\Property(
+            *                 property="message",
+            *                 type="string",
+            *                 description="A message describing the response status",
+            *                 example="User deleted successfully",
+            *             ),
+            *         ),
+            *     ),
+            *     @OA\Response(
+            *         response=401,
+            *         description="Unauthorized action",
+            *     ),
+            * )
+        */
         public function changePassword(Request $request)
         {
             $user= $request->user();

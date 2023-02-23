@@ -466,6 +466,48 @@
                     }
                 ]
             }
+        },
+        "/api/deleteProfile": {
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Delete the conected user",
+                "description": "Delete the authenticated user",
+                "operationId": "ed6f436800e9d6475e3400aed5ff084b",
+                "responses": {
+                    "200": {
+                        "description": "User deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "The status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "A message describing the response status",
+                                            "type": "string",
+                                            "example": "User deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized action"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     }
 }
