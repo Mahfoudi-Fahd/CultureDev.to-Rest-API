@@ -384,6 +384,88 @@
                     }
                 ]
             }
+        },
+        "/api/forgetPassword": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Request password reset",
+                "description": "Request a password reset by sending an email to the user's email address",
+                "operationId": "0e4341bab2f2b9530d00876eea8b5e1c",
+                "requestBody": {
+                    "description": "the email address",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "description": "the user's email address",
+                                        "type": "string",
+                                        "example": "example@example.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "email has been send successfuly",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "statut of response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "a message that describe your response",
+                                            "type": "string",
+                                            "example": "an verification token has been send to your email "
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "action not authorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "status of response",
+                                            "type": "string",
+                                            "example": "anauthoriz"
+                                        },
+                                        "message": {
+                                            "description": "message describe your response",
+                                            "type": "string",
+                                            "example": "action not authorize"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "email dosn't exist"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     }
 }

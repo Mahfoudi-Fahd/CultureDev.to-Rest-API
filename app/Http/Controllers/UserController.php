@@ -134,7 +134,69 @@ class UserController extends Controller
                 'user' => $user,
             ]);
         }    
-        
+         /**
+             * @OA\Post(
+             *    path="/api/forgetPassword",
+             *    summary="Request password reset",
+             *    description="Request a password reset by sending an email to the user's email address",
+             *    tags={"Users"},
+             *    security={{"bearerAuth": {}}},
+             *    @OA\RequestBody(
+             *        description="the email address",
+             *        required=true,
+             *        @OA\JsonContent(
+             *            @OA\Property(
+             *               property="email",
+             *               type="string",
+             *               description="the user's email address",
+             *               example="example@example.com",
+             *            ),
+             *        ),
+             *    ),
+             *    @OA\Response(
+             *         response=200,
+             *         description="email has been send successfuly",
+             *         @OA\JsonContent(
+             *            @OA\Property(
+             *                property="status",
+             *                type="string",
+             *                description="statut of response",
+             *                example="success",
+             *            ),
+             *            @OA\Property(
+             *               property="message",
+             *               type="string",
+             *               description="a message that describe your response",
+             *               example="an verification token has been send to your email ",
+             *            ),
+             *         ),
+             *    ),
+             *    @OA\Response(
+             *         response=401,
+             *         description="action not authorized",
+             *         @OA\JsonContent(
+             *           @OA\Property(
+             *           property="status",
+             *           type="string",
+             *           description="status of response",
+             *           example="anauthoriz",
+             *           ),
+             *           @OA\Property(
+             *           property="message",
+             *           type="string",
+             *           description="message describe your response",
+             *           example="action not authorize",
+             *           ),
+             *         ),
+             *    ),
+             *    @OA\Response(
+             *         response=404,
+             *         description="email dosn't exist",
+             *    ),
+             * 
+             * )
+             *
+         */
         public function forgetPassword(Request $request)
         {
             $user = $request->user();
