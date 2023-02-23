@@ -29,15 +29,20 @@ class ArticleController extends Controller
 
     public function store(ArticleRequest $request)
     {
-        $article=Article::create($request->all());
-        $article->category;
-        $article->tags;
-        $article->user;
-        $article->comments;
-        return response()->json([
-            'message' => 'The article is succefully added !',
-            'Article' => $article
-        ], 201);
+        if(auth()->user()->role_id==3){
+            return response()->json(['message'=>'This action is not allowed !']);
+        }else{
+            $article=Article::create($request->all());
+            $article->category;
+            $article->tags;
+            $article->user;
+            $article->comments;
+            return response()->json([
+                'message' => 'The article is succefully added !',
+                'Article' => $article
+            ], 201);
+        }
+ 
     }
 
 
@@ -56,24 +61,53 @@ class ArticleController extends Controller
 
     public function update(ArticleRequest $request, article $article)
     {
-        $article->update($request->all());
-        $article->category;
-        $article->tags;
-        $article->user;
-        $article->comments;
-        return response()->json([
-            'message' => 'Article updated successfully :>',
-            'Article' => $article
-        ], 201);
+        if(auth()->user()->role_id==3){
+            return response()->json(['message'=>'This action is Not allowed']);
+        }else if(auth()->user()->role_id==2){
+            if(auth()->user()->id == $article->user_id){
+                $article->update($request->all());
+                $article->category;
+                $article->tags;
+                $article->user;
+                $article->comments;
+                return response()->json([
+                    'message' => 'Article updated successfully !',
+                    'Article' => $article
+                ], 201);
+            }else return response()->json(['message'=>'This action is not allowed !']);
+        }else if(auth()->user()->role_id==1){
+            $article->update($request->all());
+            $article->category;
+            $article->tags;
+            $article->user;
+            $article->comments;
+            return response()->json([
+                'message' => 'Article updated successfully !',
+                'Article' => $article
+            ], 201);
+        }
     }
 
 
     public function destroy(Article $article)
     {
-        article::destroy($article->id);
-        return response()->json([
-            'message' => 'Article deleted successfully :3'
-        ]);
+       
+        if(auth()->user()->role_id==3){
+           return response()->json(['message'=>'This action is Not allowed']);
+        }else if(auth()->user()->role_id==2){
+            if(auth()->user()->id == $article->user_id){
+                article::destroy($article->id);
+                return response()->json([
+                    'message' => 'Article deleted successfully !'
+                ]);
+                }else return response()->json(['message'=>'This action is Not allowed']);
+        }else if(auth()->user()->role_id==1){
+            article::destroy($article->id);
+            return response()->json([
+                'message' => 'Article deleted successfully !'
+            ]);
+        }
+
     }
 
 

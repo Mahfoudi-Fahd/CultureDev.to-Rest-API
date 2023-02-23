@@ -4,15 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use App\Http\Requests\StoreTagRequest;
-use App\Http\Requests\UpdateTagRequest;
 
 class TagController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except'=>['index','show']]);
+    }
+
+
     public function index()
     {
         $tags = Tag::orderBy('id')->get();
@@ -22,39 +23,26 @@ class TagController extends Controller
             'tags' => $tags
         ]);    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreTagRequest  $request
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function store(StoreTagRequest $request)
     {
+        if(auth()->user()->role_id!=1){
+            return response()->json(["message"=>"This method not allowed !"]); 
+        }else{
         $tag = Tag::create($request->all());
 
         return response()->json([
             'status' => true,
             'message' => "Tag Created successfully!",
             'tag' => $tag
-        ], 201);    
+        ], 201);
+        }    
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Tag  $tag
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function show(Tag $tag)
     {
         $tag->find($tag->id);
@@ -64,58 +52,44 @@ class TagController extends Controller
         return response()->json($tag, 200);    
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Tag  $tag
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Tag $tag)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateTagRequest  $request
-     * @param  \App\Models\Tag  $tag
-     * @return \Illuminate\Http\Response
-     */
     public function update(StoreTagRequest $request, Tag $tag)
     {
-        $tag->update($request->all());
+        if(auth()->user()->role_id!=1){
+            return response()->json(["message"=>"This method not allowed !"]); 
+        }else{
+            $tag->update($request->all());
 
-        if (!$tag) {
-            return response()->json(['message' => 'Tag not found'], 404);
+            if (!$tag) {
+                return response()->json(['message' => 'Tag not found'], 404);
+            }
+
+            return response()->json([
+                'status' => true,
+                'message' => "Tag Updated successfully!",
+                'tag' => $tag
+            ], 200);    
         }
-
-        return response()->json([
-            'status' => true,
-            'message' => "Tag Updated successfully!",
-            'tag' => $tag
-        ], 200);    
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Tag  $tag
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Tag $tag)
     {
-        $tag->delete();
+        if(auth()->user()->role_id!=1){
+            return response()->json(["message"=>"This method not allowed !"]); 
+        }else{
+            $tag->delete();
 
-        if (!$tag) {
+            if (!$tag) {
+                return response()->json([
+                    'message' => 'Tag not found'
+                ], 404);
+            }
+
             return response()->json([
-                'message' => 'Tag not found'
-            ], 404);
+                'status' => true,
+                'message' => 'Tag deleted successfully'
+            ], 200);    
         }
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Tag deleted successfully'
-        ], 200);    
     }
 }
