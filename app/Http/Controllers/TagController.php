@@ -112,6 +112,68 @@ class TagController extends Controller
     }
 
 
+   /**
+ * @OA\Get(
+ *     path="/api/tags/{tag}",
+ *     summary="Get a tag by ID",
+ *     description="Returns a single tag",
+ *     operationId="getTagById",
+ *     tags={"Tags"},
+ *     security={
+ *         {"Bearer": {}}
+ *     },
+ *     @OA\Parameter(
+ *         name="tag",
+ *         in="path",
+ *         description="ID of the tag to return",
+ *         required=true,
+ *         @OA\Schema(
+ *             type="integer",
+ *             format="int64",
+ *         ),
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Tag found",
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *               property="id",
+ *               type="integer",
+ *               description="ID of the tag."
+ *               ),
+ *               @OA\Property(
+ *               property="name",
+ *               type="string",
+ *               description="Name of the tag."
+ *              )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Tag not found",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="Tag not found"
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="Unauthorized"
+ *             )
+ *         )
+ *     )
+ * )
+ */
 
 
     public function show(Tag $tag)
