@@ -107,6 +107,58 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
+    /**
+ * @OA\Get(
+ *     path="/api/comments/{id}",
+ *     summary="Get a comment",
+ *     description="Get a comment by ID",
+ *     operationId="getCommentById",
+ *     tags={"Comments"},
+ *     security={
+ *         {"Bearer": {}}
+ *     },
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         description="ID of the comment to get",
+ *         required=true,
+ *         @OA\Schema(
+ *             type="integer",
+ *             format="int64"
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Comment found",
+ *         @OA\JsonContent(
+ *               type="object",
+ *               @OA\Property(
+ *               property="id",
+ *               type="integer",
+ *               description="ID of the comment."
+ *               ),
+ *               @OA\Property(
+ *               property="body",
+ *               type="string",
+ *               description="Body of the comment."
+ *               ),
+ *         ),
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Comment not found",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="Comment not found"
+ *             )
+ *         )
+ *     )
+ * )
+ */
+
     public function show(Comment $comment)
     {
         $comment->find($comment->id);
