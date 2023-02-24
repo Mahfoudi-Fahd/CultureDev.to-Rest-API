@@ -221,6 +221,58 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
+    /**
+ * @OA\Delete(
+ *     path="/api/comments/{id}",
+ *     summary="Delete a comment",
+ *     description="Delete a comment by ID",
+ *     operationId="deleteCommentById",
+ *     tags={"Comments"},
+ *     security={
+ *         {"Bearer": {}}
+ *     },
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         description="ID of the comment to delete",
+ *         required=true,
+ *         @OA\Schema(
+ *             type="integer",
+ *             format="int64"
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Comment deleted successfully",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="status",
+ *                 type="boolean",
+ *                 example=true
+ *             ),
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="Comment deleted successfully"
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Comment not found",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="Comment not found"
+ *             )
+ *         )
+ *     )
+ * )
+ */
+
     public function destroy(Comment $comment)
     {
         $comment->delete();
