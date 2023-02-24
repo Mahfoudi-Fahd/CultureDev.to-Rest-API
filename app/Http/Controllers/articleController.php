@@ -217,6 +217,7 @@ class ArticleController extends Controller
  *        @OA\Response(
  *        response=404,
  *        description="user not found",
+ *          @OA\JsonContent(
  *            @OA\Property(
  *                property="status",
  *                type="string",
@@ -229,6 +230,7 @@ class ArticleController extends Controller
  *                description="a message describe the status of the response",
  *                example="article not found",
  *            ),
+ *         ),
  *        ),
  *       @OA\Response(
  *           response=401,
@@ -250,6 +252,89 @@ class ArticleController extends Controller
             'Article' => $article
         ], 200);  
     }
+     
+    /**
+ * @OA\Put(
+ *     path="/api/articles/{id}",
+ *     summary="Update an article",
+ *     description="Update an article",
+ *     tags={"Articles"},
+ *     security={{"bearerAuth":{}}},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         description="The ID of the article to update",
+ *         required=true,
+ *         @OA\Schema(
+ *             type="integer",
+ *         )
+ *     ),
+ *     @OA\RequestBody(
+ *         description="Update an article",
+ *         required=true,
+ *     ),
+ *     @OA\Response(
+ *         response=201,
+ *         description="The article is successfully updated",
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 description="A message describing the status of the response",
+ *                 example="Article updated successfully !",
+ *             ),
+ *             @OA\Property(
+ *                 property="Article",
+ *                 description="The updated article object",
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="data was invalid",
+ *         @OA\JsonContent(
+ *            @OA\Property(
+ *               property="status",
+ *               type="string",
+ *               description="status of the response",
+ *               example="Error",
+ *            ),
+ *            @OA\Property(
+ *               property="message",
+ *               type="string",
+ *               description="message describe the satuts of the response",
+ *               example="validation error"
+ *            ),
+ *         ),
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized action",
+ *     ),
+ *     @OA\Response(
+ *         response=403,
+ *         description="Forbidden action",
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="This action is not allowed !"
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Article not found",
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="No articles found !"
+ *             )
+ *         )
+ *     )
+ * )
+ */
 
 
     public function update(ArticleRequest $request, article $article)
