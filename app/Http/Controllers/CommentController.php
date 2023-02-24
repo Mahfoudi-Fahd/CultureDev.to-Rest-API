@@ -43,6 +43,49 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    /**
+ * @OA\Post(
+ *     path="/api/comments",
+ *     summary="Create a comment",
+ *     description="Create a new comment for an article",
+ *     operationId="createComment",
+ *     tags={"Comments"},
+ *     security={
+ *         {"Bearer": {}}
+ *     },
+ *     @OA\RequestBody(
+ *         description="Comment object",
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"article_id", "content"},
+ *             @OA\Property(property="article_id", type="integer", example=1),
+ *             @OA\Property(property="content", type="string", example="This is a comment")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Comment created successfully",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="status",
+ *                 type="boolean",
+ *                 example=true
+ *             ),
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="success"
+ *             ),
+ *             @OA\Property(
+ *                 property="comments",
+ *                 ref="Commment Created successfully!"
+ *             )
+ *         )
+ *     )
+ * )
+ */
+
     public function store(Request $request)
     {
         $comments = Comment::create([
