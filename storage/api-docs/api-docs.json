@@ -370,6 +370,74 @@
                 ]
             }
         },
+        "/api/categories/{category}": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Get a specific category",
+                "description": "Retrieve a specific category by ID",
+                "operationId": "e92579e78391b6199e78c2a091dbea0a",
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "path",
+                        "description": "ID of the category to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "description": "ID of the category",
+                                            "type": "integer"
+                                        },
+                                        "name": {
+                                            "description": "Name of the category",
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "description": "Date and time of category creation (YYYY-MM-DD HH:MM:SS)",
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "description": "Date and time of category update (YYYY-MM-DD HH:MM:SS)",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Category not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Category not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/updateProfile": {
             "put": {
                 "tags": [

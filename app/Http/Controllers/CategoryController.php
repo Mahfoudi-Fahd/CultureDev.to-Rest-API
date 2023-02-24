@@ -102,6 +102,61 @@ class CategoryController extends Controller
         } 
     }
    
+     /**
+ * @OA\Get(
+ *     path="/api/categories/{category}",
+ *     summary="Get a specific category",
+ *     description="Retrieve a specific category by ID",
+ *     tags={"Categories"},
+ *     @OA\Parameter(
+ *         name="category",
+ *         in="path",
+ *         description="ID of the category to retrieve",
+ *         required=true,
+ *         @OA\Schema(
+ *             type="integer",
+ *             format="int64"
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful operation",
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="id",
+ *                 type="integer",
+ *                 description="ID of the category",
+ *             ),
+ *             @OA\Property(
+ *                 property="name",
+ *                 type="string",
+ *                 description="Name of the category",
+ *             ),
+ *             @OA\Property(
+ *                 property="created_at",
+ *                 type="string",
+ *                 description="Date and time of category creation (YYYY-MM-DD HH:MM:SS)",
+ *             ),
+ *             @OA\Property(
+ *                 property="updated_at",
+ *                 type="string",
+ *                 description="Date and time of category update (YYYY-MM-DD HH:MM:SS)",
+ *             ),
+ *         ),
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Category not found",
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="Category not found",
+ *             ),
+ *         ),
+ *     ),
+ * )
+ */
 
     public function show(Category $category)
     {
@@ -109,7 +164,8 @@ class CategoryController extends Controller
         if (!$category) {
             return response()->json(['message' => 'Category not found'], 404);
         }
-        return response()->json($category, 200);    }
+        return response()->json($category, 200); 
+    }
 
 
 
