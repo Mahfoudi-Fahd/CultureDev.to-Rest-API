@@ -43,6 +43,49 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    /**
+ * @OA\Post(
+ *     path="/api/comments",
+ *     summary="Create a comment",
+ *     description="Create a new comment for an article",
+ *     operationId="createComment",
+ *     tags={"Comments"},
+ *     security={
+ *         {"Bearer": {}}
+ *     },
+ *     @OA\RequestBody(
+ *         description="Comment object",
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"article_id", "content"},
+ *             @OA\Property(property="article_id", type="integer", example=1),
+ *             @OA\Property(property="content", type="string", example="This is a comment")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Comment created successfully",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="status",
+ *                 type="boolean",
+ *                 example=true
+ *             ),
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="success"
+ *             ),
+ *             @OA\Property(
+ *                 property="comments",
+ *                 ref="Commment Created successfully!"
+ *             )
+ *         )
+ *     )
+ * )
+ */
+
     public function store(Request $request)
     {
         $comments = Comment::create([
@@ -64,6 +107,58 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
+    /**
+ * @OA\Get(
+ *     path="/api/comments/{id}",
+ *     summary="Get a comment",
+ *     description="Get a comment by ID",
+ *     operationId="getCommentById",
+ *     tags={"Comments"},
+ *     security={
+ *         {"Bearer": {}}
+ *     },
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         description="ID of the comment to get",
+ *         required=true,
+ *         @OA\Schema(
+ *             type="integer",
+ *             format="int64"
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Comment found",
+ *         @OA\JsonContent(
+ *               type="object",
+ *               @OA\Property(
+ *               property="id",
+ *               type="integer",
+ *               description="ID of the comment."
+ *               ),
+ *               @OA\Property(
+ *               property="body",
+ *               type="string",
+ *               description="Body of the comment."
+ *               ),
+ *         ),
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Comment not found",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="Comment not found"
+ *             )
+ *         )
+ *     )
+ * )
+ */
+
     public function show(Comment $comment)
     {
         $comment->find($comment->id);
@@ -126,6 +221,58 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
+    /**
+ * @OA\Delete(
+ *     path="/api/comments/{id}",
+ *     summary="Delete a comment",
+ *     description="Delete a comment by ID",
+ *     operationId="deleteCommentById",
+ *     tags={"Comments"},
+ *     security={
+ *         {"Bearer": {}}
+ *     },
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         description="ID of the comment to delete",
+ *         required=true,
+ *         @OA\Schema(
+ *             type="integer",
+ *             format="int64"
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Comment deleted successfully",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="status",
+ *                 type="boolean",
+ *                 example=true
+ *             ),
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="Comment deleted successfully"
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Comment not found",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="Comment not found"
+ *             )
+ *         )
+ *     )
+ * )
+ */
+
     public function destroy(Comment $comment)
     {
         $comment->delete();

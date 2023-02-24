@@ -15,7 +15,79 @@ class AuthController extends Controller
     {
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
-
+      /**
+     * @OA\Post(
+     *     path="/api/login",
+     *     summary="Authenticate a user",
+     *     description="Authenticate a user with their email and password",
+     *     tags={"Authentication"},
+     *     @OA\RequestBody(
+     *         description="User credentials",
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="email",
+     *                 type="string",
+     *                 description="The user's email address",
+     *             ),
+     *             @OA\Property(
+     *                 property="password",
+     *                 type="string",
+     *                 description="The user's password",
+     *             ),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="User authenticated successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="status",
+     *                 type="string",
+     *                 description="The status of the response",
+     *                 example="success",
+     *             ),
+     *             @OA\Property(
+     *                 property="user",
+     *                 type="object",
+     *                 description="The authenticated user object",
+     *             ),
+     *             @OA\Property(
+     *                 property="Authorization",
+     *                 type="object",
+     *                 description="The authorization token",
+     *                 @OA\Property(
+     *                     property="token",
+     *                     type="string",
+     *                     description="The authorization token value",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="type",
+     *                     type="string",
+     *                     description="The authorization token type",
+     *                 ),
+     *             ),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="the given data is invalid",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="message",
+     *                 type="string",
+     *                 description="A message describing the validation error",
+     *                 example="The given data was invalid.",
+     *             ),
+     *             @OA\Property(
+     *                 property="errors",
+     *                 type="object",
+     *                 description="An object containing validation error messages",
+     *             ),
+     *         ),
+     *     ),
+     * )
+ */
     public function login(Request $request)
     {
         $request->validate([
@@ -42,7 +114,71 @@ class AuthController extends Controller
             ]
         ]);
     }
-
+     /**
+     * @OA\Post(
+     *     path="/api/register",
+     *     summary="cretae your account",
+     *     description="Create an account",
+     *     tags={"Authentication"},
+     *     security={{"bearerAuth": {}}},
+     *     @OA\RequestBody(
+     *         description="create the user",
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="name",
+     *                 type="string",
+     *                 description="The user's name",
+     *             ),
+     *             @OA\Property(
+     *                 property="email",
+     *                 type="string",
+     *                 description="The user's email address",
+     *             ),
+     *             @OA\Property(
+     *                 property="password",
+     *                 type="string",
+     *                 description="The user's password",
+     *             ),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="User created successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="status",
+     *                 type="string",
+     *                 description="The status of the response",
+     *                 example="success",
+     *             ),
+     *             @OA\Property(
+     *                 property="message",
+     *                 type="string",
+     *                 description="A message describing the response status",
+     *                 example="User createded successfully",
+     *             ),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation error",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="message",
+     *                 type="string",
+     *                 description="A message describing the validation error",
+     *                 example="The given data was invalid.",
+     *             ),
+     *             @OA\Property(
+     *                 property="errors",
+     *                 type="object",
+     *                 description="An object containing validation error messages",
+     *             ),
+     *         ),
+     *     ),
+     * )
+ */
     public function register(Request $request)
     {
         $request->validate([
@@ -67,7 +203,37 @@ class AuthController extends Controller
             ]
         ]);
     }
-
+       /**
+     * @OA\Post(
+     *     path="/api/logout",
+     *     summary="Log out user",
+     *     description="Log out the currently authenticated user",
+     *     tags={"Authentication"},
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Logout successful",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="status",
+     *                 type="string",
+     *                 description="The status of the response",
+     *                 example="success",
+     *             ),
+     *             @OA\Property(
+     *                 property="message",
+     *                 type="string",
+     *                 description="A message describing the response status",
+     *                 example="Successfully logged out",
+     *             ),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response="401",
+     *         description="Anauthoriz action"
+     *     ),
+     * )
+     */
     public function logout()
     {
         Auth::logout();
@@ -76,7 +242,39 @@ class AuthController extends Controller
             'message' => 'Successfully logged out',
         ]);
     }
-
+ /**
+     * @OA\Post(
+     *    path="/api/refresh",
+     *    summary="Refresh user's access token",
+     *    description="Refresh user's access token",
+     *    tags={"Authentication"},
+     *    security={{"bearerAuth":{}}},
+     *    @OA\Response(
+     *       response=200,
+     *       description="Access token refreshed successfully",
+     *       @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="status",
+     *                 type="string",
+     *                 description="The status of the response",
+     *                 example="success",
+     *             ),
+     *             @OA\Property(
+     *                 property="message",
+     *                 type="string",
+     *                 description="A message describing the response status",
+     *                 example="the token has been refreshed successfully",
+     *             ),
+     *         ),
+     *    @OA\Response(
+     *    
+     *        response=401,
+     *        description="Anauthoriz action",
+     *    )
+     * 
+     * )
+     * )
+     */
     public function refresh()
     {
         return response()->json([
