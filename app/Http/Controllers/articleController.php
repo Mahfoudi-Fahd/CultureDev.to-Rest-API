@@ -365,6 +365,52 @@ class ArticleController extends Controller
             ], 201);
         }
     }
+/**
+ * @OA\Delete(
+ *     path="/api/articles/{article}",
+ *     summary="Delete an article",
+ *     description="Delete an article",
+ *     tags={"Articles"},
+ *     security={{"bearerAuth":{}}},
+ *     @OA\Parameter(
+ *         name="article",
+ *         in="path",
+ *         description="ID of the article to delete",
+ *         required=true,
+ *         @OA\Schema(
+ *             type="integer",
+ *             format="int64"
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="The article is successfully deleted",
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 description="message describe the status of response",
+ *                 example="Article deleted successfully !",
+ *             ),
+ *         ),
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized action",
+ *     ),
+ *     @OA\Response(
+ *         response=403,
+ *         description="Forbidden action",
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="This action is not allowed !"
+ *             )
+ *         )
+ *     )
+ * )
+ */
 
 
     public function destroy(Article $article)
@@ -387,6 +433,146 @@ class ArticleController extends Controller
         }
 
     }
+    /**
+ * @OA\Get(
+ *     path="/api/articles/search/{searching}",
+ *     summary="Search articles by title",
+ *     description="Search articles by title",
+ *     tags={"Articles"},
+ *     @OA\Parameter(
+ *         name="searching",
+ *         in="path",
+ *         description="The search query for article title",
+ *         required=true,
+ *         example="technology"
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Returns the articles matching the search query",
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="Here's what you're looking for:"
+ *             ),
+ *             @OA\Property(
+ *                 property="Article",
+ *                 type="array",
+ *                 description="Details of the articles.",
+ *              @OA\items(
+ *                 @OA\Property(
+ *                     property="id",
+ *                     type="integer",
+ *                     description="ID of the article."
+ *                 ),
+ *                 @OA\Property(
+ *                     property="title",
+ *                     type="string",
+ *                     description="Title of the article."
+ *                 ),
+ *                 @OA\Property(
+ *                     property="body",
+ *                     type="string",
+ *                     description="Body of the article."
+ *                 ),
+ *                 @OA\Property(
+ *                     property="category",
+ *                     type="object",
+ *                     description="Details of the article's category.",
+ *                     @OA\Property(
+ *                         property="id",
+ *                         type="integer",
+ *                         description="ID of the category."
+ *                     ),
+ *                     @OA\Property(
+ *                         property="name",
+ *                         type="string",
+ *                         description="Name of the category."
+ *                     )
+ *                 ),
+ *                 @OA\Property(
+ *                     property="tags",
+ *                     type="array",
+ *                     description="Array of tags associated with the article.",
+ *                     @OA\Items(
+ *                         type="object",
+ *                         @OA\Property(
+ *                             property="id",
+ *                             type="integer",
+ *                             description="ID of the tag."
+ *                         ),
+ *                         @OA\Property(
+ *                             property="name",
+ *                             type="string",
+ *                             description="Name of the tag."
+ *                         )
+ *                     )
+ *                 ),
+ *                 @OA\Property(
+ *                     property="user",
+ *                     type="object",
+ *                     description="Details of the user who created the article.",
+ *                     @OA\Property(
+ *                         property="id",
+ *                         type="integer",
+ *                         description="ID of the user."
+ *                     ),
+ *                     @OA\Property(
+ *                         property="name",
+ *                         type="string",
+ *                         description="Name of the user."
+ *                     )
+ *                 ),
+ *                 @OA\Property(
+ *                     property="comments",
+ *                     type="array",
+ *                     description="Array of comments associated with the article.",
+ *                     @OA\Items(
+ *                         type="object",
+ *                         @OA\Property(
+ *                             property="id",
+ *                             type="integer",
+ *                             description="ID of the comment."
+ *                         ),
+ *                         @OA\Property(
+ *                             property="body",
+ *                             type="string",
+ *                             description="Body of the comment."
+ *                         ),
+ *                         @OA\Property(
+ *                             property="user",
+ *                             type="object",
+ *                             description="Details of the user who created the comment.",
+ *                             @OA\Property(
+ *                                 property="id",
+ *                                 type="integer",
+ *                                 description="ID of the user."
+ *                             ),
+ *                             @OA\Property(
+ *                                 property="name",
+ *                                 type="string",
+ *                                 description="Name of the user."
+ *                             )
+ *                        ),
+ *                      ),
+ *                  ),
+ *             ),
+ *           ),
+ *         ),
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="No articles found",
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="No articles found :0",
+ *             ),
+ *         ),
+ *     ),
+ * ),
+ */
 
 
     public function searchByTitle($searching, Article $article){
@@ -400,6 +586,155 @@ class ArticleController extends Controller
             "Article"=> $article
         ],200);
     }
+/**
+ * @OA\Get(
+ *     path="/api/articles/search/category/{searching}",
+ *     summary="Search articles by category",
+ *     description="Search articles by category name",
+ *     tags={"Articles"},
+ *     @OA\Parameter(
+ *         name="searching",
+ *         in="path",
+ *         description="The name of the category to search for",
+ *         required=true,
+ *         @OA\Schema(
+ *             type="string"
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="List of articles with the matching category name",
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 description="A message describing the response status",
+ *                 example="Here's what you're looking for:"
+ *             ),
+ *             @OA\Property(
+ *                 property="Article",
+ *                 type="array",
+ *                 @OA\Items(
+ *                     @OA\Property(
+ *                 property="Article",
+ *                 type="array",
+ *                 description="Details of the articles.",
+ *              @OA\items(
+ *                 @OA\Property(
+ *                     property="id",
+ *                     type="integer",
+ *                     description="ID of the article."
+ *                 ),
+ *                 @OA\Property(
+ *                     property="title",
+ *                     type="string",
+ *                     description="Title of the article."
+ *                 ),
+ *                 @OA\Property(
+ *                     property="body",
+ *                     type="string",
+ *                     description="Body of the article."
+ *                 ),
+ *                 @OA\Property(
+ *                     property="category",
+ *                     type="object",
+ *                     description="Details of the article's category.",
+ *                     @OA\Property(
+ *                         property="id",
+ *                         type="integer",
+ *                         description="ID of the category."
+ *                     ),
+ *                     @OA\Property(
+ *                         property="name",
+ *                         type="string",
+ *                         description="Name of the category."
+ *                     )
+ *                 ),
+ *                 @OA\Property(
+ *                     property="tags",
+ *                     type="array",
+ *                     description="Array of tags associated with the article.",
+ *                     @OA\Items(
+ *                         type="object",
+ *                         @OA\Property(
+ *                             property="id",
+ *                             type="integer",
+ *                             description="ID of the tag."
+ *                         ),
+ *                         @OA\Property(
+ *                             property="name",
+ *                             type="string",
+ *                             description="Name of the tag."
+ *                         )
+ *                     )
+ *                 ),
+ *                 @OA\Property(
+ *                     property="user",
+ *                     type="object",
+ *                     description="Details of the user who created the article.",
+ *                     @OA\Property(
+ *                         property="id",
+ *                         type="integer",
+ *                         description="ID of the user."
+ *                     ),
+ *                     @OA\Property(
+ *                         property="name",
+ *                         type="string",
+ *                         description="Name of the user."
+ *                     )
+ *                 ),
+ *                 @OA\Property(
+ *                     property="comments",
+ *                     type="array",
+ *                     description="Array of comments associated with the article.",
+ *                     @OA\Items(
+ *                         type="object",
+ *                         @OA\Property(
+ *                             property="id",
+ *                             type="integer",
+ *                             description="ID of the comment."
+ *                         ),
+ *                         @OA\Property(
+ *                             property="body",
+ *                             type="string",
+ *                             description="Body of the comment."
+ *                         ),
+ *                         @OA\Property(
+ *                             property="user",
+ *                             type="object",
+ *                             description="Details of the user who created the comment.",
+ *                             @OA\Property(
+ *                                 property="id",
+ *                                 type="integer",
+ *                                 description="ID of the user."
+ *                             ),
+ *                             @OA\Property(
+ *                                 property="name",
+ *                                 type="string",
+ *                                 description="Name of the user.",
+ *                             )
+ *                        ),
+ *                      ),
+ *                  ),
+ *             ),
+ *           ),
+ *                 )
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="No articles found with the given category name",
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="No articles found :0"
+ *             )
+ *         )
+ *     )
+ * )
+ */
 
     public function searchByCategory($searching, Article $article){
 
@@ -413,6 +748,54 @@ class ArticleController extends Controller
             "Article"=> $article
         ],200);
     }
+/**
+ * @OA\Get(
+ *     path="/api/articles/searchByTag/{searching}",
+ *     summary="Search articles by tag",
+ *     description="Search articles by tag",
+ *     tags={"Articles"},
+ *     @OA\Parameter(
+ *         name="searching",
+ *         in="path",
+ *         description="Tag to search for",
+ *         required=true,
+ *         @OA\Schema(
+ *             type="string"
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Articles found",
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 description="message describing the status of the response",
+ *                 example="Here's what you're looking for:"
+ *             ),
+ *             @OA\Property(
+ *                 property="Article",
+ *                 type="array",
+ *                 description="Array of articles that match the search criteria",
+ *                 @OA\Items(
+ *                     ref="#/components/schemas/Article"
+ *                 )
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="No articles found",
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="No articles found :0"
+ *             )
+ *         )
+ *     )
+ * )
+ */
 
     public function searchByTag($searching, Article $article){
 

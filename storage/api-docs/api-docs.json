@@ -788,6 +788,69 @@
                         "description": "Anuthorize action"
                     }
                 }
+            },
+            "delete": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Delete an article",
+                "description": "Delete an article",
+                "operationId": "c9799913f2f6dfa03c1f38e1a58ed587",
+                "parameters": [
+                    {
+                        "name": "article",
+                        "in": "path",
+                        "description": "ID of the article to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The article is successfully deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "message describe the status of response",
+                                            "type": "string",
+                                            "example": "Article deleted successfully !"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized action"
+                    },
+                    "403": {
+                        "description": "Forbidden action",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "This action is not allowed !"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/articles/{id}": {
@@ -805,8 +868,7 @@
                         "description": "The ID of the article to update",
                         "required": true,
                         "schema": {
-                            "type": "integer",
-                            "format": "int64"
+                            "type": "integer"
                         }
                     }
                 ],
@@ -898,6 +960,317 @@
                         "bearerAuth": []
                     }
                 ]
+            }
+        },
+        "/api/articles/search/{searching}": {
+            "get": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Search articles by title",
+                "description": "Search articles by title",
+                "operationId": "95452640fb30fc281edbc551758b3317",
+                "parameters": [
+                    {
+                        "name": "searching",
+                        "in": "path",
+                        "description": "The search query for article title",
+                        "required": true,
+                        "example": "technology"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns the articles matching the search query",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Here's what you're looking for:"
+                                        },
+                                        "Article": {
+                                            "description": "Details of the articles.",
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "description": "ID of the article.",
+                                                        "type": "integer"
+                                                    },
+                                                    "title": {
+                                                        "description": "Title of the article.",
+                                                        "type": "string"
+                                                    },
+                                                    "body": {
+                                                        "description": "Body of the article.",
+                                                        "type": "string"
+                                                    },
+                                                    "category": {
+                                                        "description": "Details of the article's category.",
+                                                        "properties": {
+                                                            "id": {
+                                                                "description": "ID of the category.",
+                                                                "type": "integer"
+                                                            },
+                                                            "name": {
+                                                                "description": "Name of the category.",
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "tags": {
+                                                        "description": "Array of tags associated with the article.",
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "description": "ID of the tag.",
+                                                                    "type": "integer"
+                                                                },
+                                                                "name": {
+                                                                    "description": "Name of the tag.",
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    },
+                                                    "user": {
+                                                        "description": "Details of the user who created the article.",
+                                                        "properties": {
+                                                            "id": {
+                                                                "description": "ID of the user.",
+                                                                "type": "integer"
+                                                            },
+                                                            "name": {
+                                                                "description": "Name of the user.",
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "comments": {
+                                                        "description": "Array of comments associated with the article.",
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "description": "ID of the comment.",
+                                                                    "type": "integer"
+                                                                },
+                                                                "body": {
+                                                                    "description": "Body of the comment.",
+                                                                    "type": "string"
+                                                                },
+                                                                "user": {
+                                                                    "description": "Details of the user who created the comment.",
+                                                                    "properties": {
+                                                                        "id": {
+                                                                            "description": "ID of the user.",
+                                                                            "type": "integer"
+                                                                        },
+                                                                        "name": {
+                                                                            "description": "Name of the user.",
+                                                                            "type": "string"
+                                                                        }
+                                                                    },
+                                                                    "type": "object"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No articles found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No articles found :0"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/articles/search/category/{searching}": {
+            "get": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Search articles by category",
+                "description": "Search articles by category name",
+                "operationId": "b75726e91abf44b8d3d7e17d697e689e",
+                "parameters": [
+                    {
+                        "name": "searching",
+                        "in": "path",
+                        "description": "The name of the category to search for",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of articles with the matching category name",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "A message describing the response status",
+                                            "type": "string",
+                                            "example": "Here's what you're looking for:"
+                                        },
+                                        "Article": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "Article": {
+                                                        "description": "Details of the articles.",
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "description": "ID of the article.",
+                                                                    "type": "integer"
+                                                                },
+                                                                "title": {
+                                                                    "description": "Title of the article.",
+                                                                    "type": "string"
+                                                                },
+                                                                "body": {
+                                                                    "description": "Body of the article.",
+                                                                    "type": "string"
+                                                                },
+                                                                "category": {
+                                                                    "description": "Details of the article's category.",
+                                                                    "properties": {
+                                                                        "id": {
+                                                                            "description": "ID of the category.",
+                                                                            "type": "integer"
+                                                                        },
+                                                                        "name": {
+                                                                            "description": "Name of the category.",
+                                                                            "type": "string"
+                                                                        }
+                                                                    },
+                                                                    "type": "object"
+                                                                },
+                                                                "tags": {
+                                                                    "description": "Array of tags associated with the article.",
+                                                                    "type": "array",
+                                                                    "items": {
+                                                                        "properties": {
+                                                                            "id": {
+                                                                                "description": "ID of the tag.",
+                                                                                "type": "integer"
+                                                                            },
+                                                                            "name": {
+                                                                                "description": "Name of the tag.",
+                                                                                "type": "string"
+                                                                            }
+                                                                        },
+                                                                        "type": "object"
+                                                                    }
+                                                                },
+                                                                "user": {
+                                                                    "description": "Details of the user who created the article.",
+                                                                    "properties": {
+                                                                        "id": {
+                                                                            "description": "ID of the user.",
+                                                                            "type": "integer"
+                                                                        },
+                                                                        "name": {
+                                                                            "description": "Name of the user.",
+                                                                            "type": "string"
+                                                                        }
+                                                                    },
+                                                                    "type": "object"
+                                                                },
+                                                                "comments": {
+                                                                    "description": "Array of comments associated with the article.",
+                                                                    "type": "array",
+                                                                    "items": {
+                                                                        "properties": {
+                                                                            "id": {
+                                                                                "description": "ID of the comment.",
+                                                                                "type": "integer"
+                                                                            },
+                                                                            "body": {
+                                                                                "description": "Body of the comment.",
+                                                                                "type": "string"
+                                                                            },
+                                                                            "user": {
+                                                                                "description": "Details of the user who created the comment.",
+                                                                                "properties": {
+                                                                                    "id": {
+                                                                                        "description": "ID of the user.",
+                                                                                        "type": "integer"
+                                                                                    },
+                                                                                    "name": {
+                                                                                        "description": "Name of the user.",
+                                                                                        "type": "string"
+                                                                                    }
+                                                                                },
+                                                                                "type": "object"
+                                                                            }
+                                                                        },
+                                                                        "type": "object"
+                                                                    }
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No articles found with the given category name",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No articles found :0"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
