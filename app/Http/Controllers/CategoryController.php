@@ -25,8 +25,67 @@ class CategoryController extends Controller
             'categories' => $categories
         ]); 
     }
+/**
+ * @OA\Post(
+ *     path="/api/categories",
+ *     summary="Create a new category",
+ *     description="Create a new category",
+ *     tags={"Categories"},
+ *     security={{"bearerAuth":{}}},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         description="Category object that needs to be created",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="name", type="string", example="Technology"),
+ *             @OA\Property(property="description", type="string", example="Articles about technology"),
+ *         ),
+ *     ),
+ *     @OA\Response(
+ *         response=201,
+ *         description="Category created successfully",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="boolean", example=true),
+ *             @OA\Property(property="message", type="string", example="Category created successfully!"),
+ *             @OA\Property(
+ *                 property="category",
+ *                 type="object",
+ *             ),
+ *         ),
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized action",
+ *     ),
+ *     @OA\Response(
+ *         response=403,
+ *         description="Forbidden action",
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="This action is not allowed !"
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Validation error",
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="The given data was invalid."
+ *             ),
+ *             @OA\Property(
+ *                 property="errors",
+ *                 type="object",
+ *             ),
+ *         ),
+ *     ),
+ * )
+ */
 
-
+    
  
     public function store(StoreCategoryRequest $request)
     {
@@ -42,7 +101,7 @@ class CategoryController extends Controller
             ], 201);   
         } 
     }
-
+   
 
     public function show(Category $category)
     {

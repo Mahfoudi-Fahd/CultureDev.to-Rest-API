@@ -777,11 +777,113 @@ class ArticleController extends Controller
  *                 property="Article",
  *                 type="array",
  *                 description="Array of articles that match the search criteria",
- *                 @OA\Items(
- *                     ref="#/components/schemas/Article"
- *                 )
- *             )
- *         )
+ *                  @OA\Items(
+ *                     @OA\Property(
+ *                 property="Article",
+ *                 type="array",
+ *                 description="Details of the articles.",
+ *              @OA\items(
+ *                 @OA\Property(
+ *                     property="id",
+ *                     type="integer",
+ *                     description="ID of the article."
+ *                 ),
+ *                 @OA\Property(
+ *                     property="title",
+ *                     type="string",
+ *                     description="Title of the article."
+ *                 ),
+ *                 @OA\Property(
+ *                     property="body",
+ *                     type="string",
+ *                     description="Body of the article."
+ *                 ),
+ *                 @OA\Property(
+ *                     property="category",
+ *                     type="object",
+ *                     description="Details of the article's category.",
+ *                     @OA\Property(
+ *                         property="id",
+ *                         type="integer",
+ *                         description="ID of the category."
+ *                     ),
+ *                     @OA\Property(
+ *                         property="name",
+ *                         type="string",
+ *                         description="Name of the category."
+ *                     )
+ *                 ),
+ *                 @OA\Property(
+ *                     property="tags",
+ *                     type="array",
+ *                     description="Array of tags associated with the article.",
+ *                     @OA\Items(
+ *                         type="object",
+ *                         @OA\Property(
+ *                             property="id",
+ *                             type="integer",
+ *                             description="ID of the tag."
+ *                         ),
+ *                         @OA\Property(
+ *                             property="name",
+ *                             type="string",
+ *                             description="Name of the tag."
+ *                         )
+ *                     )
+ *                 ),
+ *                 @OA\Property(
+ *                     property="user",
+ *                     type="object",
+ *                     description="Details of the user who created the article.",
+ *                     @OA\Property(
+ *                         property="id",
+ *                         type="integer",
+ *                         description="ID of the user."
+ *                     ),
+ *                     @OA\Property(
+ *                         property="name",
+ *                         type="string",
+ *                         description="Name of the user."
+ *                     )
+ *                 ),
+ *                 @OA\Property(
+ *                     property="comments",
+ *                     type="array",
+ *                     description="Array of comments associated with the article.",
+ *                     @OA\Items(
+ *                         type="object",
+ *                         @OA\Property(
+ *                             property="id",
+ *                             type="integer",
+ *                             description="ID of the comment."
+ *                         ),
+ *                         @OA\Property(
+ *                             property="body",
+ *                             type="string",
+ *                             description="Body of the comment."
+ *                         ),
+ *                         @OA\Property(
+ *                             property="user",
+ *                             type="object",
+ *                             description="Details of the user who created the comment.",
+ *                             @OA\Property(
+ *                                 property="id",
+ *                                 type="integer",
+ *                                 description="ID of the user.",
+ *                             ),
+ *                             @OA\Property(
+ *                                 property="name",
+ *                                 type="string",
+ *                                 description="Name of the user.",
+ *                             ),
+ *                        ),
+ *                      ),
+ *                  ),
+ *             ),
+ *           ),
+ *           ),
+ *             ),
+ *         ),
  *     ),
  *     @OA\Response(
  *         response=404,
