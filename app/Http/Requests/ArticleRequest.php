@@ -29,7 +29,8 @@ class ArticleRequest extends FormRequest
             'content' => 'required',    
             'user_id' => ['required', 'integer'],    
             'category_id' => ['required', 'integer'],    
-            'tag_id' => ['required', 'integer'],    
+            'tag_id' => ['required', 'array'],      
+            'tag_id.*' => ['integer','exists:tags.id'],    
         ];
     }
 }
