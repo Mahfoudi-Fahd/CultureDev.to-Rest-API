@@ -15,13 +15,13 @@ class CommentController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api');
+        $this->middleware('auth:api', ['except'=>['index','show']]);
     }
 
     public function index()
     {
-        $comments = Comment::all();
-
+        $comments = Comment::with('article')->get();
+        
         return response()->json([
             'status' => 'success',
             'comments' => $comments,
@@ -275,17 +275,20 @@ class CommentController extends Controller
 
     public function destroy(Comment $comment)
     {
-        $comment->delete();
+     
+        if(auth()->user()->role_id == 1 || auth()->user()->id == $comment->user_id ){      
+            $comment->delete();
 
-        if (!$comment) {
+            if (!$comment) {
+                return response()->json([
+                    'message' => 'Comment not found'
+                ], 404);
+            }
+
             return response()->json([
-                'message' => 'Comment not found'
-            ], 404);
-        }
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Comment deleted successfully'
-        ], 200);
+                'status' => true,
+                'message' => 'Comment deleted successfully'
+            ], 200);
+        }else return response()->json(["method not allowed !"]);
     }
 }

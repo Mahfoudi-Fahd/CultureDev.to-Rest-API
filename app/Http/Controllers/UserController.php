@@ -11,6 +11,12 @@ use App\Services\EmailService;
 
 class UserController extends Controller
 {  
+
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['changePassword', 'forgetPassword','getUsers']]);
+    }
+
      /**
                  * @OA\Put(
                  *     path="/api/updateProfile",
