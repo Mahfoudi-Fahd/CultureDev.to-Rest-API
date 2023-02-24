@@ -276,7 +276,6 @@ class CommentController extends Controller
 
     public function destroy(Comment $comment)
     {
-     
         if(auth()->user()->role_id == 1 || auth()->user()->id == $comment->user_id ){      
             $comment->delete();
 

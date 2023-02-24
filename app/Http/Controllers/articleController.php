@@ -75,7 +75,13 @@ class ArticleController extends Controller
 
     public function store(ArticleRequest $request)
     {
-            $article=Article::create($request->all());
+            $article=Article::create([
+                'title' => $request->title,
+                'description' => $request->description,
+                'content' => $request->content,
+                'user_id' => auth()->user()->id,
+                'category_id' => $request->category_id,
+            ]);
             $article->tags()->attach($request->tag_id);
             $article->category;
             $article->tags;
@@ -349,7 +355,7 @@ class ArticleController extends Controller
         ], 201);
     }
 
-    
+
 /**
  * @OA\Delete(
  *     path="/api/articles/{article}",

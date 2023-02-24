@@ -39,6 +39,7 @@ Route::middleware('auth:api')->group(function () {
         Route::post('reset-password', 'forgetPassword');
         Route::delete('deleteProfile','destroy');
         Route::post('changePassword','changePassword');
+        Route::post('users','getUsers');
     });
 });
 

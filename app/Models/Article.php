@@ -18,11 +18,11 @@ class Article extends Model
     public function tags(){
         return $this->belongsToMany(Tag::class);
     }
-
+    
     public function user(){
         return $this->BelongsTo(User::class);
     }
-   
+
     public function comments(){
         return $this->hasMany(Comment::class);
     }
