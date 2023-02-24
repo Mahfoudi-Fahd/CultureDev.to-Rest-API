@@ -25,6 +25,76 @@ class TagController extends Controller
 
 
 
+    /**
+ * @OA\Post(
+ *     path="/api/tags",
+ *     summary="Create a tag",
+ *     description="Create a new tag",
+ *     operationId="createTag",
+ *     tags={"Tags"},
+ *     security={
+ *         {"Bearer": {}}
+ *     },
+ *     @OA\RequestBody(
+ *         description="Tag object that needs to be added",
+ *         required=true,
+ *         @OA\JsonContent(
+ *              type="object",
+ *                  @OA\Property(
+ *                     property="id",
+ *                     type="integer",
+ *                     description="ID of the tag."
+ *                     ),
+ *                     @OA\Property(
+ *                     property="name",
+ *                     type="string",
+ *                     description="Name of the tag."
+ *                     ),
+ *          ),
+ *     ),
+ *     @OA\Response(
+ *         response=201,
+ *         description="Tag created successfully",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="status",
+ *                 type="boolean",
+ *                 example=true
+ *             ),
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="Tag created successfully"
+ *             ),
+ *         ),
+ *     ),
+ *     @OA\Response(
+ *         response=400,
+ *         description="Invalid input",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="Invalid input"
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="Unauthorized"
+ *             )
+ *         )
+ *     )
+ * )
+ */
 
     public function store(StoreTagRequest $request)
     {
@@ -40,6 +110,7 @@ class TagController extends Controller
         ], 201);
         }    
     }
+
 
 
 
