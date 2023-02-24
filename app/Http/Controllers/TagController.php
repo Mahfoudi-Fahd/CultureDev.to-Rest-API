@@ -186,6 +186,75 @@ class TagController extends Controller
     }
 
 
+    /**
+ * @OA\Put(
+ *     path="/api/tags/{tag}",
+ *     summary="Update a tag",
+ *     description="Updates an existing tag by ID",
+ *     operationId="updateTagById",
+ *     tags={"Tags"},
+ *     security={
+ *         {"Bearer": {}}
+ *     },
+ *     @OA\Parameter(
+ *         name="tag",
+ *         in="path",
+ *         description="ID of the tag to update",
+ *         required=true,
+ *         @OA\Schema(
+ *             type="integer",
+ *             format="int64"
+ *         )
+ *     ),
+ *     @OA\RequestBody(
+ *         required=true,
+ *         description="Tag object that needs to be updated",
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Tag updated successfully",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="status",
+ *                 type="boolean",
+ *                 example=true
+ *             ),
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="Tag updated successfully!"
+ *             ),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Tag not found",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="Tag not found"
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="Unauthorized"
+ *             )
+ *         )
+ *     )
+ * )
+ */
+
+
     public function update(StoreTagRequest $request, Tag $tag)
     {
         if(auth()->user()->role_id!=1){
