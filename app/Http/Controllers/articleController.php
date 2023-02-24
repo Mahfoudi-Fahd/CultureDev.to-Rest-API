@@ -27,50 +27,50 @@ class ArticleController extends Controller
     }
     
     /**
- * @OA\Post(
- *     path="/api/articles",
- *     summary="Create a new article",
- *     description="Create a new article",
- *     tags={"Articles"},
- *     security={{"bearerAuth":{}}},
- *     @OA\RequestBody(
- *         description="create a new article",
- *         required=true,
- *     ),
- *     @OA\Response(
- *         response=200,
- *         description="The article is successfully added",
- *         @OA\JsonContent(
- *             @OA\Property(
- *                 property="status",
- *                 type="string",
- *                 description="the response status",
- *                 example="success",
- *             ),
- *             @OA\Property(
- *                 property="message",
- *                 type="string",
- *                 description="message describe the status of response",
- *                 example="The article is successfully added !",
- *             ),
- *         ),
- *     ),
- *     @OA\Response(
- *         response=401,
- *         description="Unauthorized action",
- *     ),
- *     @OA\Response(
- *         response=403,
- *         description="Forbidden action",
- *         @OA\JsonContent(
- *             @OA\Property(
- *                 property="message",
- *                 type="string",
- *                 example="This action is not allowed !"
- *             )
- *         )
- *     )
- * )
+     * @OA\Post(
+     *     path="/api/articles",
+     *     summary="Create a new article",
+     *     description="Create a new article",
+     *     tags={"Articles"},
+     *     security={{"bearerAuth":{}}},
+     *     @OA\RequestBody(
+     *         description="create a new article",
+     *         required=true,
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="The article is successfully added",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="status",
+     *                 type="string",
+     *                 description="the response status",
+     *                 example="success",
+     *             ),
+     *             @OA\Property(
+     *                 property="message",
+     *                 type="string",
+     *                 description="message describe the status of response",
+     *                 example="The article is successfully added !",
+     *             ),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized action",
+     *     ),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Forbidden action",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="message",
+     *                 type="string",
+     *                 example="This action is not allowed !"
+     *             )
+     *         )
+     *     )
+     * )
  */
 
     public function store(ArticleRequest $request)
@@ -90,7 +90,154 @@ class ArticleController extends Controller
         }
  
     }
-
+    
+     /**
+ * @OA\Get(
+ *     path="/api/articles/{article}",
+ *     summary="Show a specific article",
+ *     description="Returns the details of a specific article.",
+ *     tags={"Articles"},
+ *     @OA\Parameter(
+ *         name="article",
+ *         in="path",
+ *         description="ID of article to return",
+ *         required=true,
+ *         @OA\Schema(
+ *             type="integer",
+ *             format="int64"
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful operation",
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="Article",
+ *                 type="object",
+ *                 description="Details of the article.",
+ *                 @OA\Property(
+ *                     property="id",
+ *                     type="integer",
+ *                     description="ID of the article."
+ *                 ),
+ *                 @OA\Property(
+ *                     property="title",
+ *                     type="string",
+ *                     description="Title of the article."
+ *                 ),
+ *                 @OA\Property(
+ *                     property="body",
+ *                     type="string",
+ *                     description="Body of the article."
+ *                 ),
+ *                 @OA\Property(
+ *                     property="category",
+ *                     type="object",
+ *                     description="Details of the article's category.",
+ *                     @OA\Property(
+ *                         property="id",
+ *                         type="integer",
+ *                         description="ID of the category."
+ *                     ),
+ *                     @OA\Property(
+ *                         property="name",
+ *                         type="string",
+ *                         description="Name of the category."
+ *                     )
+ *                 ),
+ *                 @OA\Property(
+ *                     property="tags",
+ *                     type="array",
+ *                     description="Array of tags associated with the article.",
+ *                     @OA\Items(
+ *                         type="object",
+ *                         @OA\Property(
+ *                             property="id",
+ *                             type="integer",
+ *                             description="ID of the tag."
+ *                         ),
+ *                         @OA\Property(
+ *                             property="name",
+ *                             type="string",
+ *                             description="Name of the tag."
+ *                         )
+ *                     )
+ *                 ),
+ *                 @OA\Property(
+ *                     property="user",
+ *                     type="object",
+ *                     description="Details of the user who created the article.",
+ *                     @OA\Property(
+ *                         property="id",
+ *                         type="integer",
+ *                         description="ID of the user."
+ *                     ),
+ *                     @OA\Property(
+ *                         property="name",
+ *                         type="string",
+ *                         description="Name of the user."
+ *                     )
+ *                 ),
+ *                 @OA\Property(
+ *                     property="comments",
+ *                     type="array",
+ *                     description="Array of comments associated with the article.",
+ *                     @OA\Items(
+ *                         type="object",
+ *                         @OA\Property(
+ *                             property="id",
+ *                             type="integer",
+ *                             description="ID of the comment."
+ *                         ),
+ *                         @OA\Property(
+ *                             property="body",
+ *                             type="string",
+ *                             description="Body of the comment."
+ *                         ),
+ *                         @OA\Property(
+ *                             property="user",
+ *                             type="object",
+ *                             description="Details of the user who created the comment.",
+ *                             @OA\Property(
+ *                                 property="id",
+ *                                 type="integer",
+ *                                 description="ID of the user."
+ *                             ),
+ *                             @OA\Property(
+ *                                 property="name",
+ *                                 type="string",
+ *                                 description="Name of the user."
+ *                             )
+ *                        ),
+ *                      ),
+ *                     ),
+ *                   ),
+ *                 ),
+ *        ),
+ *        @OA\Response(
+ *        response=404,
+ *        description="user not found",
+ *            @OA\Property(
+ *                property="status",
+ *                type="string",
+ *                description="status of response",
+ *                example="not found",
+ *            ),
+ *            @OA\Property(
+ *                property="message",
+ *                type="string",
+ *                description="a message describe the status of the response",
+ *                example="article not found",
+ *            ),
+ *        ),
+ *       @OA\Response(
+ *           response=401,
+ *           description="Anuthorize action",
+ *       )
+ * 
+ * ),
+ * 
+*/
 
     public function show(Article $article)
     {
