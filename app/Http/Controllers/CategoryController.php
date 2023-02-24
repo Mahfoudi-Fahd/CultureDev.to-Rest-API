@@ -167,6 +167,98 @@ class CategoryController extends Controller
         return response()->json($category, 200); 
     }
 
+    /**
+ * @OA\Put(
+ *     path="/api/categories/{category}",
+ *     summary="Update a category",
+ *     description="Update a category",
+ *     tags={"Categories"},
+ *     security={{"bearerAuth":{}}},
+ *     @OA\Parameter(
+ *         name="category",
+ *         in="path",
+ *         description="ID of the category to update",
+ *         required=true,
+ *         @OA\Schema(
+ *             type="integer",
+ *             format="int64"
+ *         )
+ *     ),
+ *     @OA\RequestBody(
+ *         description="Category object to be updated",
+ *         required=true,
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="id",
+ *                 type="integer",
+ *                 description="ID of the category",
+ *             ),
+ *             @OA\Property(
+ *                 property="name",
+ *                 type="string",
+ *                 description="Name of the category",
+ *             ),
+ *             @OA\Property(
+ *                 property="created_at",
+ *                 type="string",
+ *                 description="Date and time of category creation (YYYY-MM-DD HH:MM:SS)",
+ *             ),
+ *             @OA\Property(
+ *                 property="updated_at",
+ *                 type="string",
+ *                 description="Date and time of category update (YYYY-MM-DD HH:MM:SS)",
+ *             ),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="The category is successfully updated",
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="status",
+ *                 type="boolean",
+ *                 example=true,
+ *             ),
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="success",
+ *             ),
+ *             @OA\Property(
+ *                 property="category",
+ *                 type="string",
+ *                 example="Category Updated successfully !"
+ *             )
+ *         ),
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized action",
+ *     ),
+ *     @OA\Response(
+ *         response=403,
+ *         description="Forbidden action",
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="This action is not allowed !"
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Category not found",
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="Category not found"
+ *             )
+ *         )
+ *     )
+ * )
+ */
 
 
 
