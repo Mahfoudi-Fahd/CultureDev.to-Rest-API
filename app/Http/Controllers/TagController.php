@@ -273,6 +273,70 @@ class TagController extends Controller
             ], 200);    
         }
     }
+/**
+ * @OA\Delete(
+ *     path="/api/tags/{tag}",
+ *     summary="Delete a tag by ID",
+ *     description="Delete a tag by its ID.",
+ *     operationId="deleteTag",
+ *     tags={"Tags"},
+ *     security={{"bearerAuth": {}}},
+ *     @OA\Parameter(
+ *         name="tag",
+ *         in="path",
+ *         description="ID of the tag to delete",
+ *         required=true,
+ *         @OA\Schema(
+ *             type="integer"
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Tag deleted successfully",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="status",
+ *                 type="boolean",
+ *                 example=true,
+ *                 description="Whether the operation was successful"
+ *             ),
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="Tag deleted successfully",
+ *                 description="A message indicating the result of the operation"
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Tag not found",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="Tag not found",
+ *                 description="A message indicating that the tag was not found"
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="This method not allowed !",
+ *                 description="A message indicating that the user is not authorized to perform this action"
+ *             )
+ *         )
+ *     )
+ * )
+ */
 
 
     public function destroy(Tag $tag)
