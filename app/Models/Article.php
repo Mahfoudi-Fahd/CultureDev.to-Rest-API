@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Article extends Model
 {
     use HasFactory;
-    protected $fillable=['title', 'description', 'content','user_id', 'category_id', 'tag_id'];
+    protected $fillable=['title', 'description', 'content','user_id', 'category_id'];
 
     public function category(){
         return $this->BelongsTo(Category::class,'category_id','id')->select(['id', 'name']);
