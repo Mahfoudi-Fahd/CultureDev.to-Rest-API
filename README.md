@@ -1,4 +1,8 @@
 
+## UML:<br>
+Use Case/Sequence Link : https://app.diagrams.net/#G1Sq1yVAaJuncVFy3VyAia0UKCa98rrcnX <br>
+Class Diagram Link : https://lucid.app/lucidchart/aa2a9fab-b485-4655-a6d3-fcf75e41cabb/edit?invitationId=inv_84366575-b8ec-4d59-879b-ff17af645e8d&page=0_0# <br>
+
 
 #  To Use this Project Locally
 

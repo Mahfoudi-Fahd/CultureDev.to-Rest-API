@@ -1,0 +1,2331 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Blog Management System with REST API",
+        "description": "a scalable and flexible system for managing blog content with the ability to support multiple users.",
+        "contact": {
+            "email": "ahmed.yassin.elhamzaoui2019@gmail.com"
+        },
+        "license": {
+            "name": "lazone m7koma",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0",
+        "x-logo": {
+            "url": "https://via.placeholder.com/190x90.png?text=L5-Swagger"
+        }
+    },
+    "paths": {
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Authenticate a user",
+                "description": "Authenticate a user with their email and password",
+                "operationId": "a3b306d14572d1f4bd6c064b3233e7b8",
+                "requestBody": {
+                    "description": "User credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "description": "The user's email address",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "The user's password",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User authenticated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "The status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "user": {
+                                            "description": "The authenticated user object",
+                                            "type": "object"
+                                        },
+                                        "Authorization": {
+                                            "description": "The authorization token",
+                                            "properties": {
+                                                "token": {
+                                                    "description": "The authorization token value",
+                                                    "type": "string"
+                                                },
+                                                "type": {
+                                                    "description": "The authorization token type",
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "the given data is invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "A message describing the validation error",
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "description": "An object containing validation error messages",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "cretae your account",
+                "description": "Create an account",
+                "operationId": "8a56853624e025573120a09a4c75d468",
+                "requestBody": {
+                    "description": "create the user",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "The user's name",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "The user's email address",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "The user's password",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "The status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "A message describing the response status",
+                                            "type": "string",
+                                            "example": "User createded successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "A message describing the validation error",
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "description": "An object containing validation error messages",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Log out user",
+                "description": "Log out the currently authenticated user",
+                "operationId": "fe8f3429cd6979b3b4517e186505f9f9",
+                "responses": {
+                    "200": {
+                        "description": "Logout successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "The status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "A message describing the response status",
+                                            "type": "string",
+                                            "example": "Successfully logged out"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Anauthoriz action"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/refresh": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Refresh user's access token",
+                "description": "Refresh user's access token",
+                "operationId": "2c27d311a2876560fcb5a754b556cdc5",
+                "responses": {
+                    "200": {
+                        "description": "Access token refreshed successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "The status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "A message describing the response status",
+                                            "type": "string",
+                                            "example": "the token has been refreshed successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/categories": {
+            "post": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Create a new category",
+                "description": "Create a new category",
+                "operationId": "71fcad552bb0eaba9fb191fd8d8dcab0",
+                "requestBody": {
+                    "description": "Category object that needs to be created",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Technology"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Articles about technology"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Category created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Category created successfully!"
+                                        },
+                                        "category": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized action"
+                    },
+                    "403": {
+                        "description": "Forbidden action",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "This action is not allowed !"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/categories/{category}": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Get a specific category",
+                "description": "Retrieve a specific category by ID",
+                "operationId": "e92579e78391b6199e78c2a091dbea0a",
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "path",
+                        "description": "ID of the category to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "description": "ID of the category",
+                                            "type": "integer"
+                                        },
+                                        "name": {
+                                            "description": "Name of the category",
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "description": "Date and time of category creation (YYYY-MM-DD HH:MM:SS)",
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "description": "Date and time of category update (YYYY-MM-DD HH:MM:SS)",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Category not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Category not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Update a category",
+                "description": "Update a category",
+                "operationId": "02aa39951e67916277e28086f85909c8",
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "path",
+                        "description": "ID of the category to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Category object to be updated",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "ID of the category",
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "description": "Name of the category",
+                                        "type": "string"
+                                    },
+                                    "created_at": {
+                                        "description": "Date and time of category creation (YYYY-MM-DD HH:MM:SS)",
+                                        "type": "string"
+                                    },
+                                    "updated_at": {
+                                        "description": "Date and time of category update (YYYY-MM-DD HH:MM:SS)",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The category is successfully updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "category": {
+                                            "type": "string",
+                                            "example": "Category Updated successfully !"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized action"
+                    },
+                    "403": {
+                        "description": "Forbidden action",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "This action is not allowed !"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Category not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Category not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/categories/{id}": {
+            "delete": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Delete a category",
+                "description": "Delete a category by ID",
+                "operationId": "deleteCategory",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the category to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Category deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Category deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Category not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Category not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "This method not allowed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "This method not allowed!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/comments": {
+            "post": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "Create a comment",
+                "description": "Create a new comment for an article",
+                "operationId": "createComment",
+                "requestBody": {
+                    "description": "Comment object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "article_id",
+                                    "content"
+                                ],
+                                "properties": {
+                                    "article_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "content": {
+                                        "type": "string",
+                                        "example": "This is a comment"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Comment created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "comments": {
+                                            "$ref": "Commment Created successfully!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/comments/{id}": {
+            "get": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "Get a comment",
+                "description": "Get a comment by ID",
+                "operationId": "getCommentById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the comment to get",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Comment found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "description": "ID of the comment.",
+                                            "type": "integer"
+                                        },
+                                        "body": {
+                                            "description": "Body of the comment.",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Comment not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Comment not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "Delete a comment",
+                "description": "Delete a comment by ID",
+                "operationId": "deleteCommentById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the comment to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Comment deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Comment deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Comment not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Comment not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/tags": {
+            "post": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Create a tag",
+                "description": "Create a new tag",
+                "operationId": "createTag",
+                "requestBody": {
+                    "description": "Tag object that needs to be added",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "ID of the tag.",
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "description": "Name of the tag.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Tag created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Tag created successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid input"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/tags/{tag}": {
+            "get": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Get a tag by ID",
+                "description": "Returns a single tag",
+                "operationId": "getTagById",
+                "parameters": [
+                    {
+                        "name": "tag",
+                        "in": "path",
+                        "description": "ID of the tag to return",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Tag found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "description": "ID of the tag.",
+                                            "type": "integer"
+                                        },
+                                        "name": {
+                                            "description": "Name of the tag.",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Tag not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Tag not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Update a tag",
+                "description": "Updates an existing tag by ID",
+                "operationId": "updateTagById",
+                "parameters": [
+                    {
+                        "name": "tag",
+                        "in": "path",
+                        "description": "ID of the tag to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Tag object that needs to be updated",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Tag updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Tag updated successfully!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Tag not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Tag not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Delete a tag by ID",
+                "description": "Delete a tag by its ID.",
+                "operationId": "deleteTag",
+                "parameters": [
+                    {
+                        "name": "tag",
+                        "in": "path",
+                        "description": "ID of the tag to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Tag deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Whether the operation was successful",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "description": "A message indicating the result of the operation",
+                                            "type": "string",
+                                            "example": "Tag deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Tag not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "A message indicating that the tag was not found",
+                                            "type": "string",
+                                            "example": "Tag not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "A message indicating that the user is not authorized to perform this action",
+                                            "type": "string",
+                                            "example": "This method not allowed !"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/updateProfile": {
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update user information",
+                "description": "Update the authenticated user's information",
+                "operationId": "afe222ee627ee2bb518b6c590ada4332",
+                "requestBody": {
+                    "description": "The updated user information",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "The user's new name",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "The user's new email address",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "The user's new password",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "The status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "A message describing the response status",
+                                            "type": "string",
+                                            "example": "User updated successfully"
+                                        },
+                                        "user": {
+                                            "description": "The updated user object",
+                                            "properties": {
+                                                "id": {
+                                                    "description": "The user's ID",
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "description": "The user's name",
+                                                    "type": "string",
+                                                    "example": "John Doe"
+                                                },
+                                                "email": {
+                                                    "description": "The user's email address",
+                                                    "type": "string",
+                                                    "example": "example@example.com"
+                                                },
+                                                "role_id": {
+                                                    "description": "The user's role ID",
+                                                    "type": "integer",
+                                                    "example": 3
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized action"
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "A message describing the validation error",
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "description": "An object containing validation error messages",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/forgetPassword": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Request password reset",
+                "description": "Request a password reset by sending an email to the user's email address",
+                "operationId": "0e4341bab2f2b9530d00876eea8b5e1c",
+                "requestBody": {
+                    "description": "the email address",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "description": "the user's email address",
+                                        "type": "string",
+                                        "example": "example@example.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "email has been send successfuly",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "statut of response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "a message that describe your response",
+                                            "type": "string",
+                                            "example": "an verification token has been send to your email "
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "action not authorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "status of response",
+                                            "type": "string",
+                                            "example": "anauthoriz"
+                                        },
+                                        "message": {
+                                            "description": "message describe your response",
+                                            "type": "string",
+                                            "example": "action not authorize"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "email dosn't exist"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/changePassword": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "change password ",
+                "description": "change the password of the user",
+                "operationId": "c74a6833e836dc51c3133a86fb0a586e",
+                "responses": {
+                    "200": {
+                        "description": "password changed successfuly",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "The status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "A message describing the response status",
+                                            "type": "string",
+                                            "example": "Password has been changed successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "405": {
+                        "description": "Method not allowd"
+                    },
+                    "422": {
+                        "description": "validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "the status response",
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "description": "An object containing validation error messages",
+                                            "type": "string",
+                                            "example": "validation error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/deleteProfile": {
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Delete the conected user",
+                "description": "Delete the authenticated user",
+                "operationId": "eaef42d2bda2e1695b28bb32edcf322f",
+                "responses": {
+                    "200": {
+                        "description": "User deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "The status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "A message describing the response status",
+                                            "type": "string",
+                                            "example": "User deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized action"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/articles": {
+            "post": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Create a new article",
+                "description": "Create a new article",
+                "operationId": "e328bed23caf889ad982ad3f1180bccb",
+                "requestBody": {
+                    "description": "create a new article",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "The article is successfully added",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "the response status",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "message describe the status of response",
+                                            "type": "string",
+                                            "example": "The article is successfully added !"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized action"
+                    },
+                    "403": {
+                        "description": "Forbidden action",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "This action is not allowed !"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/articles/{article}": {
+            "get": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Show a specific article",
+                "description": "Returns the details of a specific article.",
+                "operationId": "4a09e05e36f650b9c54ba9a601b735f9",
+                "parameters": [
+                    {
+                        "name": "article",
+                        "in": "path",
+                        "description": "ID of article to return",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Article": {
+                                            "description": "Details of the article.",
+                                            "properties": {
+                                                "id": {
+                                                    "description": "ID of the article.",
+                                                    "type": "integer"
+                                                },
+                                                "title": {
+                                                    "description": "Title of the article.",
+                                                    "type": "string"
+                                                },
+                                                "body": {
+                                                    "description": "Body of the article.",
+                                                    "type": "string"
+                                                },
+                                                "category": {
+                                                    "description": "Details of the article's category.",
+                                                    "properties": {
+                                                        "id": {
+                                                            "description": "ID of the category.",
+                                                            "type": "integer"
+                                                        },
+                                                        "name": {
+                                                            "description": "Name of the category.",
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "tags": {
+                                                    "description": "Array of tags associated with the article.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "description": "ID of the tag.",
+                                                                "type": "integer"
+                                                            },
+                                                            "name": {
+                                                                "description": "Name of the tag.",
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "user": {
+                                                    "description": "Details of the user who created the article.",
+                                                    "properties": {
+                                                        "id": {
+                                                            "description": "ID of the user.",
+                                                            "type": "integer"
+                                                        },
+                                                        "name": {
+                                                            "description": "Name of the user.",
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "comments": {
+                                                    "description": "Array of comments associated with the article.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "description": "ID of the comment.",
+                                                                "type": "integer"
+                                                            },
+                                                            "body": {
+                                                                "description": "Body of the comment.",
+                                                                "type": "string"
+                                                            },
+                                                            "user": {
+                                                                "description": "Details of the user who created the comment.",
+                                                                "properties": {
+                                                                    "id": {
+                                                                        "description": "ID of the user.",
+                                                                        "type": "integer"
+                                                                    },
+                                                                    "name": {
+                                                                        "description": "Name of the user.",
+                                                                        "type": "string"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "user not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "status of response",
+                                            "type": "string",
+                                            "example": "not found"
+                                        },
+                                        "message": {
+                                            "description": "a message describe the status of the response",
+                                            "type": "string",
+                                            "example": "article not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Anuthorize action"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Delete an article",
+                "description": "Delete an article",
+                "operationId": "c9799913f2f6dfa03c1f38e1a58ed587",
+                "parameters": [
+                    {
+                        "name": "article",
+                        "in": "path",
+                        "description": "ID of the article to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The article is successfully deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "message describe the status of response",
+                                            "type": "string",
+                                            "example": "Article deleted successfully !"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized action"
+                    },
+                    "403": {
+                        "description": "Forbidden action",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "This action is not allowed !"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/articles/{id}": {
+            "put": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Update an article",
+                "description": "Update an article",
+                "operationId": "2717d5a8e3b1f16637aded325347f9ad",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The ID of the article to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Update an article",
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "The article is successfully updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "A message describing the status of the response",
+                                            "type": "string",
+                                            "example": "Article updated successfully !"
+                                        },
+                                        "Article": {
+                                            "description": "The updated article object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "data was invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "status of the response",
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "message": {
+                                            "description": "message describe the satuts of the response",
+                                            "type": "string",
+                                            "example": "validation error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized action"
+                    },
+                    "403": {
+                        "description": "Forbidden action",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "This action is not allowed !"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Article not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No articles found !"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/articles/search/{searching}": {
+            "get": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Search articles by title",
+                "description": "Search articles by title",
+                "operationId": "95452640fb30fc281edbc551758b3317",
+                "parameters": [
+                    {
+                        "name": "searching",
+                        "in": "path",
+                        "description": "The search query for article title",
+                        "required": true,
+                        "example": "technology"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns the articles matching the search query",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Here's what you're looking for:"
+                                        },
+                                        "Article": {
+                                            "description": "Details of the articles.",
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "description": "ID of the article.",
+                                                        "type": "integer"
+                                                    },
+                                                    "title": {
+                                                        "description": "Title of the article.",
+                                                        "type": "string"
+                                                    },
+                                                    "body": {
+                                                        "description": "Body of the article.",
+                                                        "type": "string"
+                                                    },
+                                                    "category": {
+                                                        "description": "Details of the article's category.",
+                                                        "properties": {
+                                                            "id": {
+                                                                "description": "ID of the category.",
+                                                                "type": "integer"
+                                                            },
+                                                            "name": {
+                                                                "description": "Name of the category.",
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "tags": {
+                                                        "description": "Array of tags associated with the article.",
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "description": "ID of the tag.",
+                                                                    "type": "integer"
+                                                                },
+                                                                "name": {
+                                                                    "description": "Name of the tag.",
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    },
+                                                    "user": {
+                                                        "description": "Details of the user who created the article.",
+                                                        "properties": {
+                                                            "id": {
+                                                                "description": "ID of the user.",
+                                                                "type": "integer"
+                                                            },
+                                                            "name": {
+                                                                "description": "Name of the user.",
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "comments": {
+                                                        "description": "Array of comments associated with the article.",
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "description": "ID of the comment.",
+                                                                    "type": "integer"
+                                                                },
+                                                                "body": {
+                                                                    "description": "Body of the comment.",
+                                                                    "type": "string"
+                                                                },
+                                                                "user": {
+                                                                    "description": "Details of the user who created the comment.",
+                                                                    "properties": {
+                                                                        "id": {
+                                                                            "description": "ID of the user.",
+                                                                            "type": "integer"
+                                                                        },
+                                                                        "name": {
+                                                                            "description": "Name of the user.",
+                                                                            "type": "string"
+                                                                        }
+                                                                    },
+                                                                    "type": "object"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No articles found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No articles found :0"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/articles/search/category/{searching}": {
+            "get": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Search articles by category",
+                "description": "Search articles by category name",
+                "operationId": "b75726e91abf44b8d3d7e17d697e689e",
+                "parameters": [
+                    {
+                        "name": "searching",
+                        "in": "path",
+                        "description": "The name of the category to search for",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of articles with the matching category name",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "A message describing the response status",
+                                            "type": "string",
+                                            "example": "Here's what you're looking for:"
+                                        },
+                                        "Article": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "Article": {
+                                                        "description": "Details of the articles.",
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "description": "ID of the article.",
+                                                                    "type": "integer"
+                                                                },
+                                                                "title": {
+                                                                    "description": "Title of the article.",
+                                                                    "type": "string"
+                                                                },
+                                                                "body": {
+                                                                    "description": "Body of the article.",
+                                                                    "type": "string"
+                                                                },
+                                                                "category": {
+                                                                    "description": "Details of the article's category.",
+                                                                    "properties": {
+                                                                        "id": {
+                                                                            "description": "ID of the category.",
+                                                                            "type": "integer"
+                                                                        },
+                                                                        "name": {
+                                                                            "description": "Name of the category.",
+                                                                            "type": "string"
+                                                                        }
+                                                                    },
+                                                                    "type": "object"
+                                                                },
+                                                                "tags": {
+                                                                    "description": "Array of tags associated with the article.",
+                                                                    "type": "array",
+                                                                    "items": {
+                                                                        "properties": {
+                                                                            "id": {
+                                                                                "description": "ID of the tag.",
+                                                                                "type": "integer"
+                                                                            },
+                                                                            "name": {
+                                                                                "description": "Name of the tag.",
+                                                                                "type": "string"
+                                                                            }
+                                                                        },
+                                                                        "type": "object"
+                                                                    }
+                                                                },
+                                                                "user": {
+                                                                    "description": "Details of the user who created the article.",
+                                                                    "properties": {
+                                                                        "id": {
+                                                                            "description": "ID of the user.",
+                                                                            "type": "integer"
+                                                                        },
+                                                                        "name": {
+                                                                            "description": "Name of the user.",
+                                                                            "type": "string"
+                                                                        }
+                                                                    },
+                                                                    "type": "object"
+                                                                },
+                                                                "comments": {
+                                                                    "description": "Array of comments associated with the article.",
+                                                                    "type": "array",
+                                                                    "items": {
+                                                                        "properties": {
+                                                                            "id": {
+                                                                                "description": "ID of the comment.",
+                                                                                "type": "integer"
+                                                                            },
+                                                                            "body": {
+                                                                                "description": "Body of the comment.",
+                                                                                "type": "string"
+                                                                            },
+                                                                            "user": {
+                                                                                "description": "Details of the user who created the comment.",
+                                                                                "properties": {
+                                                                                    "id": {
+                                                                                        "description": "ID of the user.",
+                                                                                        "type": "integer"
+                                                                                    },
+                                                                                    "name": {
+                                                                                        "description": "Name of the user.",
+                                                                                        "type": "string"
+                                                                                    }
+                                                                                },
+                                                                                "type": "object"
+                                                                            }
+                                                                        },
+                                                                        "type": "object"
+                                                                    }
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No articles found with the given category name",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No articles found :0"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/articles/searchByTag/{searching}": {
+            "get": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Search articles by tag",
+                "description": "Search articles by tag",
+                "operationId": "029fcff4019cc8777252fe7f162ecf49",
+                "parameters": [
+                    {
+                        "name": "searching",
+                        "in": "path",
+                        "description": "Tag to search for",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Articles found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "message describing the status of the response",
+                                            "type": "string",
+                                            "example": "Here's what you're looking for:"
+                                        },
+                                        "Article": {
+                                            "description": "Array of articles that match the search criteria",
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "Article": {
+                                                        "description": "Details of the articles.",
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "description": "ID of the article.",
+                                                                    "type": "integer"
+                                                                },
+                                                                "title": {
+                                                                    "description": "Title of the article.",
+                                                                    "type": "string"
+                                                                },
+                                                                "body": {
+                                                                    "description": "Body of the article.",
+                                                                    "type": "string"
+                                                                },
+                                                                "category": {
+                                                                    "description": "Details of the article's category.",
+                                                                    "properties": {
+                                                                        "id": {
+                                                                            "description": "ID of the category.",
+                                                                            "type": "integer"
+                                                                        },
+                                                                        "name": {
+                                                                            "description": "Name of the category.",
+                                                                            "type": "string"
+                                                                        }
+                                                                    },
+                                                                    "type": "object"
+                                                                },
+                                                                "tags": {
+                                                                    "description": "Array of tags associated with the article.",
+                                                                    "type": "array",
+                                                                    "items": {
+                                                                        "properties": {
+                                                                            "id": {
+                                                                                "description": "ID of the tag.",
+                                                                                "type": "integer"
+                                                                            },
+                                                                            "name": {
+                                                                                "description": "Name of the tag.",
+                                                                                "type": "string"
+                                                                            }
+                                                                        },
+                                                                        "type": "object"
+                                                                    }
+                                                                },
+                                                                "user": {
+                                                                    "description": "Details of the user who created the article.",
+                                                                    "properties": {
+                                                                        "id": {
+                                                                            "description": "ID of the user.",
+                                                                            "type": "integer"
+                                                                        },
+                                                                        "name": {
+                                                                            "description": "Name of the user.",
+                                                                            "type": "string"
+                                                                        }
+                                                                    },
+                                                                    "type": "object"
+                                                                },
+                                                                "comments": {
+                                                                    "description": "Array of comments associated with the article.",
+                                                                    "type": "array",
+                                                                    "items": {
+                                                                        "properties": {
+                                                                            "id": {
+                                                                                "description": "ID of the comment.",
+                                                                                "type": "integer"
+                                                                            },
+                                                                            "body": {
+                                                                                "description": "Body of the comment.",
+                                                                                "type": "string"
+                                                                            },
+                                                                            "user": {
+                                                                                "description": "Details of the user who created the comment.",
+                                                                                "properties": {
+                                                                                    "id": {
+                                                                                        "description": "ID of the user.",
+                                                                                        "type": "integer"
+                                                                                    },
+                                                                                    "name": {
+                                                                                        "description": "Name of the user.",
+                                                                                        "type": "string"
+                                                                                    }
+                                                                                },
+                                                                                "type": "object"
+                                                                            }
+                                                                        },
+                                                                        "type": "object"
+                                                                    }
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No articles found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No articles found :0"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

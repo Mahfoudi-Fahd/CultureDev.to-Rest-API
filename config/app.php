@@ -15,7 +15,12 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name'          => env('APP_NAME', ''),
+    'mail_host'     => env('MAIL_HOST',''),
+    'mail_port'     => env('MAIL_PORT',''),
+    'mail_username' => env('MAIL_USERNAME',''),
+    'mail_password' => env('MAIL_Password',''),
+
 
     /*
     |--------------------------------------------------------------------------
@@ -194,6 +199,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\TelescopeServiceProvider::class,
 
     ],
 

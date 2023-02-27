@@ -3,7 +3,12 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TagController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +22,8 @@ use App\Http\Controllers\AuthController;
 */
 
 
+/* User Route */
+
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
     Route::post('register', 'register');
@@ -24,38 +31,35 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('refresh', 'refresh');
 });
 
+Route::Post('createRole', [RoleController::class, 'createRole']);
 
-/* User Route
-
-
-
-
-
-
-
-
- */
-
-
-
-
-
-/* Article Route
+Route::middleware('auth:api')->group(function () {
+    Route::controller(UserController::class)->group(function () {
+        Route::put('updateProfile','update');
+        Route::post('reset-password', 'forgetPassword');
+        Route::delete('deleteProfile','destroy');
+        Route::post('changePassword','changePassword');
+        Route::post('users','getUsers');
+    });
+});
 
 
 
 
 
+/* Article Route */
+
+Route::apiResource('articles', ArticleController::class);
+Route::get('articles/search/title/{searching}', [ArticleController::class, 'searchByTitle']);
+Route::get('articles/search/category/{searching}', [ArticleController::class, 'searchByCategory']);
+Route::get('articles/search/tag/{searching}', [ArticleController::class, 'searchByTag']);
 
 
 
- */
 
+//   Category Route
 
-
-
-
- /* Category Route
+Route::apiResource('categories', CategoryController::class);
 
 
 
@@ -64,30 +68,10 @@ Route::controller(AuthController::class)->group(function () {
 
 
 
- */
 
+/* Tag Route */
 
-
-
-
-
- /* Tag Route
-
-
-
-
-
-
-
-
- */
-
-
-
-
-
-
- /* Comment Route
+Route::apiResource('tags', TagController::class);
 
 
 
@@ -96,4 +80,19 @@ Route::controller(AuthController::class)->group(function () {
 
 
 
- */
+
+
+
+
+//   Comment Route
+
+// Route::apiResource('comments', CommentController::class)->middleware('auth:api');
+
+Route::controller(CommentController::class)->group(function () {
+    Route::get('comments', 'index');
+    Route::post('comments', 'store');
+    Route::get('comments/{comment}', 'show');
+    // Route::put('comments/{comment}', 'update');
+    Route::delete('comments/{comment}', 'destroy');
+    // Route::get('comments/article/{comment}', 'showComments');
+})->middleware('auth:api');
